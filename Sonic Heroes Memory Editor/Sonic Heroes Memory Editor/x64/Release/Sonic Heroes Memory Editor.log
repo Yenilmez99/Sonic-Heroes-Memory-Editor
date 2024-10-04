@@ -1,0 +1,70 @@
+﻿  Kaynak.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+      D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
+      önceki 'APIENTRY' tanımına bakın
+  
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(31,39): warning C4311: 'tür dönüştürme': işaretçi kesilmesi: 'BYTE *' - 'DWORD'
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(31,39): warning C4302: 'tür dönüştürme': 'BYTE *' iken 'DWORD' olarak kesildi
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(51,32): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(55,36): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(48,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(252,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(253,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(254,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(255,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(256,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(257,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(258,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(345,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(346,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(347,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(349,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(350,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(351,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(353,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(354,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(355,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(371,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(372,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(373,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(385,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(386,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(387,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(429,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(430,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(431,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(432,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(433,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(441,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(447,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(510,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(511,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(512,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(514,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(515,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(516,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(518,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(519,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(520,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(522,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(523,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(524,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(562,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(563,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(564,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(566,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(567,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(568,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(570,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(571,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(572,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(574,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(575,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(576,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  Kod üretiliyor
+  0 of 1808 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Kodun üretilmesi tamamlandı
+  Sonic Heroes Memory Editor.vcxproj -> D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\x64\Release\Sonic Heroes Memory Editor.exe
