@@ -1,0 +1,4 @@
+﻿  main.cpp
+LINK : warning LNK4098: defaultlib 'MSVCRT' diğer kitaplıkların kullanımı ile çakışıyor; /NODEFAULTLIB:library kullanın
+main.obj : error LNK2019: çözümlenmemiş dış sembol __imp_glClear için main işlevinde başvuruldu
+D:\Edit\Kodlama Projeler\Sonic Heroes Memory Editor\x64\Debug\Sonic Heroes Memory Editor.exe : fatal error LNK1120: 1 çözümlenmemiş dışlar

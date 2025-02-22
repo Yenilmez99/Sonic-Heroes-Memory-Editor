@@ -68,5 +68,21 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Kaynak Dosyalar</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Üst Bilgi Dosyaları</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Kaynak Dosyalar</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Sonic Heroes Memory Editor.rc">
+      <Filter>Kaynak Dosyaları</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SHico.ico">
+      <Filter>Kaynak Dosyaları</Filter>
+    </Image>
   </ItemGroup>
 </Project>

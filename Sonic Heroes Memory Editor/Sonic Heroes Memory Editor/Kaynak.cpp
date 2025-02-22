@@ -2,6 +2,8 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #include <vector>
 #include <Windows.h>
@@ -10,6 +12,9 @@
 #include <math.h>
 #include <tchar.h>
 #include <stdlib.h>
+#include <string>
+
+#define FrameRateLock 144
 
 int CharacterChanger(int MainCharacterAddress, int Calls) {
     int WriteCode = Calls - (MainCharacterAddress + 0x5);
@@ -59,93 +64,106 @@ DWORD GetPointerAddress(HWND hwnd, DWORD gameBaseAddr, DWORD address, std::vecto
 
 int main() {
 
-    const int FrameRateLock = 120;
+    bool SizeEditCheck = 0, CharacterPosEdit = 0, CharacterPointEdit = 0;
+    bool TeamBlast = 0, RingCheck = 0, InfiniteFlyCheck = 0, TimeFreezeCheck = 0;
+    bool CameraEditCheckbox = 0, CameraFreeze = 0, ColorEditCheck = 0;
 
-    bool StageCodesMenu = 0, TeamCodesMenu = 0, SizeEditCheck = 0, CharacterPosEdit = 0, CharacterPointEdit = 0;
-    bool TeamBlast = 0, RingCheck = 0, InfiniteFlyCheck = 0, AdvancedMenu = 0, TimeFreezeCheck = 0;
-    bool CharacterChangerMenu = 0, CharacterChangerCodeMenu = 0;
-
-    int RunStage = 0, Ring = 0, Live = 0, RingLock = 1, OverrideStageCode = -1, OverrideTeamCode = -1;
+    int RunStage = 0, Ring = 0, Live = 0, OverrideStageCode = 1, OverrideTeamCode = -1;
     int SpeedCharacterPower = 0x0, FlyCharacterPower = 0x0, PowerCharacterPower = 0x0;
-    int ActiveCharacter = 0, Time = 0, TimeFreeze = 0;
+    int ActiveCharacter = 0, Time[3] = { 0,0,0 };
     int CharacterSpeedPoint = 0, CharacterFlyPoint = 0, CharacterPowerPoint = 0;
+    int AssignColor[4] = { 0,0,0,0 };
+    signed int CameraRotation[3] = { 0,0,0 };
 
-    float TeamBlastBar = 0.0f, FlyBar = 0.0f, MoonJump = 0.0f, MoonJumpForce = 5.0f;
-    float HortizonalAcceleration = 0.0f, HortizonalAccelerationForce = 5.0f;
+    float TeamBlastBar = 0.0f, FlyBar = 0.0f, MoonJumpForce = 5.0f;
+    float HortizonalAccelerationForce = 5.0f;
     float SpeedSizeX = 1.0f, SpeedSizeY = 1.0f, SpeedSizeZ = 1.0f;
     float FlySizeX = 1.0f, FlySizeY = 1.0f, FlySizeZ = 1.0f;
     float PowerSizeX = 1.0f, PowerSizeY = 1.0f, PowerSizeZ = 1.0f;
     float SHMEOpacityBefore = 1.0f, SHMEOpacityAfter = 1.0f;
     float CharacterPosX = 0.0f, CharacterPosY = 0.0f, CharacterPosZ = 0.0f;
     float TPCharacterPosX = 0.0f, TPCharacterPosY = 100.0f, TPCharacterPosZ = 0.0f;
+    float CameraPosition[3] = { 0.0f,0.0f,0.0f }, ColorSelect[4] = { 0.0f,0.0f,0.0f,1.0f };
 
-    char MoonJumpHotkey = 'E', HorizontalAccelerationHotkey = 'R';
+    char MoonJumpHotkey[2] = {'E','\0'}, HorizontalAccelerationHotkey[2] = { 'R','\0' };
+    char ColorRamAdress[10] = "8C729C";
+
+    const char* CharacterOverrideListbox[12] = { "Sonic\0","Knuckles\0","Tails\0",
+                                                 "Shadow\0","Omega\0","Rouge\0",
+                                                 "Amy\0","Big\0","Cream\0",
+                                                 "Espio\0","Vector\0","Charmy\0" };
+
+    int CharacterOverrideListboxSelect[4][3];
+    for (short i = 0; i < 4; i++) {
+        for (short j = 0; j < 3; j++) {
+            CharacterOverrideListboxSelect[i][j] = j + i*3;
+        }
+    }
+
+    const char* StageCodesListbox[38] = { "Dont Override" ,"Seaside Hill" ,"Ocean Place" ,
+                                          "Grand Metropolis" ,"Power Plant" ,"Casino Park" ,
+                                          "Bingo Highway" ,"Rail Canyon" ,"Bullet Station" ,
+                                          "Frog Forest" ,"Lost Jungle" ,"Hang Castle" ,
+                                          "Mystic Mansion" ,"14 - Egg Fleet" ,"Final Fortress" ,
+                                          "EGG HAWK" ,"TEAM ?? 1" ,"ROBOT CARNIVAL" ,
+                                          "EGG ALBATROS" ,"TEAM ?? 2" ,"ROBOT STORM" ,
+                                          "EGG EMPEROR" ,"METAL MADNESS" ,"METAL SONIC" ,
+                                          "Bonus Stage 1" ,"Bonus Stage 2" ,"Bonus Stage 3" ,
+                                          "Bonus Stage 4" ,"Bonus Stage 5" ,"Bonus Stage 6" ,
+                                          "Bonus Stage 7" ,"Emerald Challange 1" ,"Emerald Challange 2" ,
+                                          "Emerald Challange 3" ,"Emerald Challange 4" ,"Emerald Challange 5" ,
+                                          "Emerald Challange 6" ,"Emerald Challange 7" };
+    int StageCodesListboxSelect = 0;
+
+    const char* TeamCodesListbox[5] = { "Dont Override", "Team Sonic","Team Dark", "Team Rose", "Team Chaotix" };
+    int TeamCodesListboxSelect = 0;
 
     // Charcter Adress
-    int Sonic = 0x005AAC87;
-    int Knuckles = 0x005AAC9C;
-    int Tails = 0x005AACB1;
-
-    int Shadow = 0x005AACC6;
-    int Omega = 0x005AACD8;
-    int Rouge = 0x005AACED;
-
-    int Amy = 0x005AAD02;
-    int Big = 0x005AAD14;
-    int Cream = 0x005AAD26;
-
-    int Espio = 0x005AAD38;
-    int Vector = 0x005AAD60;
-    int Bee = 0x005AAD88;
+    int CharacterAdress[4][3] = { {0x005AAC87,0x005AAC9C,0x005AACB1},
+                                  {0x005AACC6,0x005AACD8,0x005AACED},
+                                  {0x005AAD02,0x005AAD14,0x005AAD26},
+                                  {0x005AAD38,0x005AAD60,0x005AAD88} };
 
     // Character Calls
+    int CharacterCalls[4][3] = { {0x005CB170,0x005B6FB0,0x005C0F20},
+                                 {0x005CB510,0x005B7220,0x005C1220},
+                                 {0x005CB7D0,0x005B7580,0x005C1580},
+                                 {0x005CBB40,0x005B7940,0x005C1890} };
+    int CharacterCallsReset[4][3] = { {0x005CB170,0x005B6FB0,0x005C0F20},
+                                      {0x005CB510,0x005B7220,0x005C1220},
+                                      {0x005CB7D0,0x005B7580,0x005C1580},
+                                      {0x005CBB40,0x005B7940,0x005C1890} };
 
-    int SonicC = 0x005CB170;
-    int KnucklesC = 0x005B6FB0;
-    int TailsC = 0x005C0F20;
+    // Character Change Varible
 
-    int ShadowC = 0x005CB510;
-    int OmegaC = 0x005B7220;
-    int RougeC = 0x005C1220;
-
-    int AmyC = 0x005CB7D0;
-    int BigC = 0x005B7580;
-    int CreamC = 0x005C1580;
-
-    int EspioC = 0x005CBB40;
-    int VectorC = 0x005B7940;
-    int BeeC = 0x005C1890;
-
-    int WrSonic = 0;
-    int WrKnuckles = 0;
-    int WrTails = 0;
-
-    int WrShadow = 0;
-    int WrOmega = 0;
-    int WrRouge = 0;
-
-    int WrAmy = 0;
-    int WrBig = 0;
-    int WrCream = 0;
-
-    int WrEspio = 0;
-    int WrVector = 0;
-    int WrBee = 0;
+    int CharacterChangeVarible[4][3];
+    for (short i = 0; i < 4; i++) {
+        for (short j = 0; j < 3; j++) {
+            CharacterChangeVarible[i][j] = 0;
+        }
+    }
 
     if (!glfwInit()) {
         return -1;
     }
-    else {
-    }
 
-    GLFWwindow* window = glfwCreateWindow(1200, 600, "Sonic Heroes Memory Editor", NULL, NULL);
+    int WindowWidth = 1024, WindowHeight = 720;
+    float WidthRatio = 1.0f, HeightRatio = 1.0f;
+    GLFWwindow* window = glfwCreateWindow(WindowWidth, WindowHeight, "Sonic Heroes Memory Editor", NULL, NULL);
+
+    int width, height, channel;
+    unsigned char* pixels = stbi_load("SHico.png", &width, &height, &channel, 4);
+    GLFWimage images[1];
+    images[0].width = width;
+    images[0].height = height;
+    images[0].pixels = pixels;
+    glfwSetWindowIcon(window, 1, images);
+    // stbi_image_free(images[0].pixels);
 
     if (window == NULL) {
         std::cout << "Could not create window";
         glfwTerminate();
         return -1;
-    }
-    else {
     }
 
     glfwMakeContextCurrent(window);
@@ -155,14 +173,10 @@ int main() {
     ImGui_ImplOpenGL3_Init();
     ImGui::StyleColorsDark();
 
-    DWORD AllCharacterPowerAddress = 0x0064C268; // 0x0S 0x000F 0x00000P
+    DWORD AllCharacterPowerAddress = 0x0064C268;
     DWORD FlyBarAddress = 0x00675390;
     DWORD ActiveCharacterAddress = 0x006778AC;
-    DWORD MoonJumpAddress = 0x005CE820;
-    DWORD HorizontalAccelerationAddress = 0x005CE820;
-    DWORD SpeedSizeAdress = 0x005CE820;
-    DWORD FlySizeAdress = 0x005CE824;
-    DWORD PowerSizeAdress = 0x005CE828;
+    DWORD CommonPointerAddress = 0x005CE820;
     DWORD CameraFreezeAdress = 0x000041F4;
 
     std::vector<DWORD> AllCharacterPowerOffset{ 0x208 };
@@ -170,18 +184,37 @@ int main() {
     std::vector<DWORD> ActiveCharacterOffset{ 0x18, 0x148 };
     std::vector<DWORD> MoonJumpOffset{ 0xe0 };
     std::vector<DWORD> HorizontalAccelerationOffset{ 0xdc };
-    std::vector<DWORD> SpeedSizeOffset{ 0x100 };
-    std::vector<DWORD> FlySizeOffset{ 0x100 };
-    std::vector<DWORD> PowerSizeOffset{ 0x100 };
+    std::vector<DWORD> CharacterSizeOffset{ 0x100 };
     std::vector<DWORD> CameraFreezeOffset{ 0x0 };
 
-    while (!glfwWindowShouldClose(window)){
+    DWORD ProcessIDSonicHeroes;
+    DWORD SonicHeroesBaseAdress;
+    DWORD UseAllCharacterPower;
+    DWORD UseActiveCharacter;
+    DWORD UseFlyBar;
+    DWORD UseMoonJump;
+    DWORD UseSpeedSizeX;
+    DWORD UseFlySizeX;
+    DWORD UsePowerSizeX;
+    DWORD ActiveCharacterPosMainAddress;
+    DWORD UseActiveCharacterPosX;
+    DWORD UseActiveCharacterPosY;
+    DWORD UseActiveCharacterPosZ;
 
-        HWND hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)"); // HWND SH
+    HANDLE HandleSonicHeroes;
+    HWND hwnd_SonicHeroesTM;
+
+    while (!glfwWindowShouldClose(window)){
+        WidthRatio = WindowWidth;
+        HeightRatio = WindowHeight;
+        glfwGetWindowSize(window, &WindowWidth, &WindowHeight);
+        WidthRatio = WindowWidth / WidthRatio;
+        HeightRatio = WindowHeight / HeightRatio;
+        hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)"); // HWND SH
 
         while (hwnd_SonicHeroesTM == NULL)
         {
-            HWND hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)"); // HWND SH
+            hwnd_SonicHeroesTM = FindWindowA(NULL, "SONIC HEROES(TM)"); // HWND SH
 
             glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // Background Color Red (SH OFF)
             glClear(GL_COLOR_BUFFER_BIT);
@@ -197,20 +230,22 @@ int main() {
             }
 
             if (hwnd_SonicHeroesTM == NULL) {
+                glfwSetWindowTitle(window, "Sonic Heroes Memory Editor (Sonic Heroes OFF)");
             }
             else {
+                glfwSetWindowTitle(window, "Sonic Heroes Memory Editor");
                 break;
             }
         }
 
-        DWORD ProcessIDSonicHeroes = NULL;
+        ProcessIDSonicHeroes = NULL;
         GetWindowThreadProcessId(hwnd_SonicHeroesTM, &ProcessIDSonicHeroes); // ProcessID SH
 
-        HANDLE HandleSonicHeroes = NULL;
+        HandleSonicHeroes = NULL;
         HandleSonicHeroes = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessIDSonicHeroes); // Handle SH
 
         char SonicHeroesGameModule[] = "Tsonic_win.exe";
-        DWORD SonicHeroesBaseAdress = GetModuleBaseAddress(_T(SonicHeroesGameModule), ProcessIDSonicHeroes); // Sonic Heroes Base Address
+        SonicHeroesBaseAdress = GetModuleBaseAddress(_T(SonicHeroesGameModule), ProcessIDSonicHeroes); // Sonic Heroes Base Address
 
         // Stage open?
         ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x007C6BD4, &RunStage, sizeof(bool), 0);
@@ -224,6 +259,8 @@ int main() {
         ImGui::NewFrame(); // Buranýn Altýna Form Elemanlarý Gelecek
 
         ImGui::Begin("Sonic Heroes Memory Editor");
+        ImGui::SetWindowPos(ImVec2(WindowWidth* WidthRatio / 1.6f, 0.0f));
+        ImGui::SetWindowSize(ImVec2(WindowWidth * WidthRatio / 2.63f, WindowHeight * HeightRatio / 4));
         ImGui::Text("It is recommended that the Stage and Speed Character\nbe selected when opening the program.");
         ImGui::Text("\nOtherwise there may be some problems.");
         ImGui::Text("The settings that can be changed inside and\noutside the Stage are different");
@@ -233,35 +270,40 @@ int main() {
             glfwSetWindowOpacity(window, SHMEOpacityAfter);
             SHMEOpacityBefore = SHMEOpacityAfter;
         }
-        else{
-        }
 
         ImGui::End();
 
         if (RunStage == 0){
             
-            DWORD UseAllCharacterPower = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, AllCharacterPowerAddress, AllCharacterPowerOffset);
-            DWORD UseFlyBar = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, FlyBarAddress, FlyBarOffset);
-            DWORD UseActiveCharacter = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterAddress, ActiveCharacterOffset);
-            DWORD UseMoonJump = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, MoonJumpAddress, MoonJumpOffset);
+            UseAllCharacterPower = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, AllCharacterPowerAddress, AllCharacterPowerOffset);
+            UseFlyBar = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, FlyBarAddress, FlyBarOffset);
+            UseActiveCharacter = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterAddress, ActiveCharacterOffset);
+            UseMoonJump = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, CommonPointerAddress, MoonJumpOffset);
             
             // Reads
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD72C, &TeamBlastBar, sizeof(TeamBlastBar), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD70C, &Ring, sizeof(Ring), 0);
+            if (RingCheck == 0)
+                ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD70C, &Ring, sizeof(Ring), 0);
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD74C, &Live, sizeof(Live), 0);
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseAllCharacterPower, &SpeedCharacterPower, sizeof(bool), 0);
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)(UseAllCharacterPower + 0x1), &FlyCharacterPower, sizeof(bool), 0);
             ReadProcessMemory(HandleSonicHeroes, (PBYTE*)(UseAllCharacterPower + 0x1 + 0x1), &PowerCharacterPower, sizeof(bool), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseFlyBar, &FlyBar, sizeof(FlyBar), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacter, &ActiveCharacter, sizeof(ActiveCharacter), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseMoonJump, &MoonJump, sizeof(MoonJump), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)(UseMoonJump - 0x4), &HortizonalAcceleration, sizeof(HortizonalAcceleration), 0);
-            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD708, &Time, sizeof(Time), 0);
+            if (InfiniteFlyCheck == 0) {
+                ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseFlyBar, &FlyBar, sizeof(float), 0);
+            }
+            ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacter, &ActiveCharacter, sizeof(int), 0);
+            if (TimeFreezeCheck == 0) {
+                ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD70A, &Time[0], sizeof(char), 0); // Minute
+                ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD709, &Time[1], sizeof(char), 0); // Second
+                ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD708, &Time[2], sizeof(char), 0); // Split Second
+            }
 
             ImGui::Begin("Stage On");
+            ImGui::SetWindowPos(ImVec2(0.0f, 0.0f));
+            ImGui::SetWindowSize(ImVec2(WindowWidth * WidthRatio / 2.84f,WindowHeight * HeightRatio));
 
             ImGui::Checkbox("Team Blast Always On", &TeamBlast);
-            if (ImGui::Button("Off Team Blast", ImVec2(130, 40))) {
+            if (ImGui::Button("Off Team Blast", ImVec2(130.0f, 40.0f))) {
                 if (TeamBlastBar > 91.0f) {
                     TeamBlastBar = 91.0f;
                 }
@@ -269,59 +311,54 @@ int main() {
                 }
                 TeamBlast = 0;
             }
-            else {
-            }
 
+            ImGui::Text("Team Blast Bar");
             ImGui::SetNextItemWidth(300.0f);
-            ImGui::SliderFloat("Team Blast Bar", &TeamBlastBar, 0.0f, 91.0f);
+            ImGui::SliderFloat("0-91", &TeamBlastBar, 0.0f, 91.0f);
+
+            ImGui::Text("Fly Bar");
+            ImGui::SetNextItemWidth(300.0f);
+            ImGui::SliderFloat("0 - 180", &FlyBar, 0.0f, 180.0f);
+            ImGui::Checkbox("Infinite Fly", &InfiniteFlyCheck);
 
             ImGui::PushItemWidth(100.0f);
             ImGui::InputInt("Ring 0 - 999", &Ring);
-            ImGui::InputInt("Ring Freeze Ring Ammo 0 - 999", &RingLock);
             ImGui::Checkbox("Ring Freeze", &RingCheck);
-            if (RingCheck == 1) {
-                Ring = RingLock;
-            }
-            else {
-            }
             ImGui::InputInt("Live 0 - 99", &Live);
 
             ImGui::PushItemWidth(80.0f);
             ImGui::SliderInt("Character Powers Speed", &SpeedCharacterPower, 0, 3);
             ImGui::SliderInt("Character Powers Fly", &FlyCharacterPower, 0, 3);
             ImGui::SliderInt("Character Powers Power", &PowerCharacterPower, 0, 3);
-            ImGui::Checkbox("Infinite Fly", &InfiniteFlyCheck);
-            if (InfiniteFlyCheck == 1) {
-                FlyBar = 0.0f;
-            }
-            else {
-            }
+            
             ImGui::SliderInt("Active Role", &ActiveCharacter, 0, 2);
-            ImGui::Checkbox("Time Freezee", &TimeFreezeCheck);
-            if (TimeFreezeCheck == 1) {
-                Time = TimeFreeze;
-            }
-            else {
-                TimeFreeze = Time;
-            }
 
-            ImGui::Text("\nIt Works Even If the Texts Are Confused :D\nOnly Uses Initial Letters");
-            ImGui::InputText("Moon Jump Hotkey (Upper Case) Default 'E'", &MoonJumpHotkey, 2);
+            ImGui::Text("Time Freeze is a bit buggy");
+            ImGui::InputInt3("Time m/s/ss ", Time);
+            ImGui::Checkbox("Time Freeze", &TimeFreezeCheck);
+
+            ImGui::Text("Moon Jump Hotkey (Upper Case)");
+            ImGui::InputText("Default 'E'", &MoonJumpHotkey[0], 2);
             ImGui::InputFloat("Moon Jump Force", &MoonJumpForce);
-            ImGui::InputText("Horizontal Acceleration Hotkey (Upper Case) Default 'R'", &HorizontalAccelerationHotkey, 2);
+            ImGui::Text("Horizontal Acceleration Hotkey (Upper Case)");
+            ImGui::InputText("Default 'R'", &HorizontalAccelerationHotkey[0], 2);
             ImGui::InputFloat("Horizontal Acceleration Force", &HortizonalAccelerationForce);
             ImGui::Checkbox("Character Size Edit (Experimental)",&SizeEditCheck);
             ImGui::Checkbox("Active Character Position Edit", &CharacterPosEdit);
             ImGui::Checkbox("Character Point Edit", &CharacterPointEdit);
+            ImGui::Checkbox("Camera Edit", &CameraEditCheckbox);
+            ImGui::Checkbox("Color Edit", &ColorEditCheck);
 
             ImGui::End();
 
             if (SizeEditCheck == 1){
-                DWORD UseSpeedSizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, SpeedSizeAdress, SpeedSizeOffset);
-                DWORD UseFlySizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, FlySizeAdress, FlySizeOffset);
-                DWORD UsePowerSizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, PowerSizeAdress, PowerSizeOffset);
+                UseSpeedSizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, CommonPointerAddress, CharacterSizeOffset);
+                UseFlySizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, CommonPointerAddress + 0x4, CharacterSizeOffset);
+                UsePowerSizeX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, CommonPointerAddress + 0x8, CharacterSizeOffset);
 
                 ImGui::Begin("Character Size Edit (Experimental)");
+                ImGui::SetWindowPos(ImVec2(WindowWidth * WidthRatio / 2.84f, 0.0f));
+                ImGui::SetWindowSize(ImVec2(WindowWidth * WidthRatio / 3.65f, WindowHeight * HeightRatio / 2.4f));
                 ImGui::PushItemWidth(60.0f);
 
                 ImGui::Text("Speed Character Size");
@@ -354,25 +391,25 @@ int main() {
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(UsePowerSizeX + 0x4), &PowerSizeY, sizeof(PowerSizeY), 0);
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(UsePowerSizeX + 0x8), &PowerSizeZ, sizeof(PowerSizeZ), 0);
             }
-            else{
-            }
 
             if (CharacterPosEdit == 1){
-                DWORD ActiveCharacterPosMainAddress = 0x005CE820;
+                ActiveCharacterPosMainAddress = 0x005CE820;
 
                 std::vector<DWORD> ActiveCharacterPosXOffset{ 0xe8 };
                 std::vector<DWORD> ActiveCharacterPosYOffset{ 0xec };
                 std::vector<DWORD> ActiveCharacterPosZOffset{ 0xf0 };
 
-                DWORD UseActiveCharacterPosX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosXOffset);
-                DWORD UseActiveCharacterPosY = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosYOffset);
-                DWORD UseActiveCharacterPosZ = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosZOffset);
+                UseActiveCharacterPosX = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosXOffset);
+                UseActiveCharacterPosY = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosYOffset);
+                UseActiveCharacterPosZ = GetPointerAddress(hwnd_SonicHeroesTM, SonicHeroesBaseAdress, ActiveCharacterPosMainAddress, ActiveCharacterPosZOffset);
 
                 ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacterPosX, &CharacterPosX, sizeof(CharacterPosX), 0);
                 ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacterPosY, &CharacterPosY, sizeof(CharacterPosY), 0);
                 ReadProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacterPosZ, &CharacterPosZ, sizeof(CharacterPosZ), 0);
 
                 ImGui::Begin("Active Character Position");
+                ImGui::SetWindowPos(ImVec2(WindowWidth* WidthRatio / 2.84f, WindowHeight* HeightRatio / 2.4f));
+                ImGui::SetWindowSize(ImVec2(WindowWidth* WidthRatio / 3.0f, WindowHeight* HeightRatio / 3.5f));
 
                 ImGui::PushItemWidth(106.0f);
 
@@ -386,12 +423,8 @@ int main() {
                     WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacterPosY, &TPCharacterPosY, sizeof(TPCharacterPosY), 0);
                     WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacterPosZ, &TPCharacterPosZ, sizeof(TPCharacterPosZ), 0);
                 }
-                else{
-                }
 
                 ImGui::End();
-            }
-            else{
             }
 
             if (CharacterPointEdit == 1){
@@ -400,6 +433,8 @@ int main() {
                 ReadProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD6C8, &CharacterPowerPoint, sizeof(CharacterPowerPoint), 0);
 
                 ImGui::Begin("Character Point Edit");
+                ImGui::SetWindowPos(ImVec2(WindowWidth * WidthRatio / 1.6f, WindowHeight * HeightRatio / 4));
+                ImGui::SetWindowSize(ImVec2(WindowWidth * WidthRatio / 2.63f, WindowHeight * HeightRatio / 6));
 
                 ImGui::PushItemWidth(150.0f);
 
@@ -414,15 +449,84 @@ int main() {
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD6C8, &CharacterPowerPoint, sizeof(CharacterPowerPoint), 0);
 
             }
-            else{
+
+            if (CameraEditCheckbox == 1) {
+                ImGui::Begin("Camera Edit");
+
+                ImGui::SetWindowPos(ImVec2(WindowWidth * WidthRatio / 2.84f, WindowHeight * HeightRatio * 59 / 84));
+                ImGui::SetWindowSize(ImVec2(WindowWidth * WidthRatio / 3.0f, WindowHeight * HeightRatio / 3.33f));
+
+                ImGui::PushItemWidth(240.0f);
+                ImGui::Checkbox("Camera Freeze", &CameraFreeze);
+                if (CameraFreeze == 1) {
+                    CameraFreeze = !CameraFreeze;
+                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x00A69880, &CameraFreeze, sizeof(short), 0);
+                    CameraFreeze = !CameraFreeze;
+                }
+                else {
+                    CameraFreeze = !CameraFreeze;
+                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x00A69880, &CameraFreeze, sizeof(short), 0);
+                    CameraFreeze = !CameraFreeze;
+                }
+
+                for (short i = 0;i < 3;i++) {
+                    // Camera Position
+                    ReadProcessMemory(HandleSonicHeroes, (PBYTE*)(0x00A60C30 + 0x4 * i), &CameraPosition[i], sizeof(float), 0);
+                    // Camera Rotation
+                    ReadProcessMemory(HandleSonicHeroes, (PBYTE*)(0x00A60C44 - 0x4 * i), &CameraRotation[i], sizeof(int), 0);
+                }
+                
+                ImGui::Text("Camera Position X/Y/Z");
+                ImGui::InputFloat3("CPos", CameraPosition, "%.2f");
+                ImGui::Text("Camera Rotation Min: -32768 Max: 32767");
+                ImGui::InputInt3("CRot", CameraRotation);
+
+                for (short i = 0; i < 3; i++) {
+                    if (CameraRotation[i] > 32767)
+                        CameraRotation[i] = 32767;
+
+                    if (CameraRotation[i] < -32768)
+                        CameraRotation[i] = -32768;
+                }
+
+                for (short i = 0;i < 3;i++) {
+                    // Camera Position
+                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(0x00A60C30 + 0x4 * i), &CameraPosition[i], sizeof(float), 0);
+                    // Camera Rotation
+                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(0x00A60C44 - 0x4 * i), &CameraRotation[i], sizeof(int), 0);
+                }
+                ImGui::End();
             }
-            
+
+            if (ColorEditCheck == 1) {
+                ImGui::Begin("Color Edit");
+                ImGui::SetWindowPos(ImVec2(WindowWidth* WidthRatio / 1.46, WindowHeight* HeightRatio * 5 / 12));
+                ImGui::SetWindowSize(ImVec2(WindowWidth* WidthRatio / 3.1f, WindowHeight* HeightRatio * 7 / 12 * 1.01f));
+                ImGui::PushItemWidth(220.0f);
+
+                ImGui::ColorPicker4("Color Select", ColorSelect);
+                ImGui::Text("Write the Color Code address below.\n(without 0x)");
+                ImGui::Text("If you enter an incorrect, invalid or unknown\naddress,the application and game may crash!");
+                ImGui::InputText("",ColorRamAdress,10);
+                if (ImGui::Button("Assign Color")) {
+                    for (short i = 0;i < 4;i++) {
+                        AssignColor[i] = ColorSelect[i] * 255;
+                        WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(std::stoi(ColorRamAdress, nullptr, 16) + i), &AssignColor[i], sizeof(unsigned char), 0);
+                    }
+                }
+
+                ImGui::End();
+            }
+
             // Writes
             if (TeamBlastBar > 91.0f) {
             }
             else {
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD73C, &TeamBlast, sizeof(TeamBlast), 0);
             }
+            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD70A, &Time[0], sizeof(char), 0); // Minute
+            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD709, &Time[1], sizeof(char), 0); // Second
+            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD708, &Time[2], sizeof(char), 0); // Split Second
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD72C, &TeamBlastBar, sizeof(TeamBlastBar), 0);
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD70C, &Ring, sizeof(Ring), 0);
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD74C, &Live, sizeof(Live), 0);
@@ -431,243 +535,200 @@ int main() {
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(UseAllCharacterPower + 0x1 + 0x1), &PowerCharacterPower, sizeof(bool), 0);
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseFlyBar, &FlyBar, sizeof(FlyBar), 0);
             WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseActiveCharacter, &ActiveCharacter, sizeof(ActiveCharacter), 0);
-            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x009DD708, &TimeFreeze, sizeof(TimeFreeze), 0);
 
-            if (GetAsyncKeyState(int(MoonJumpHotkey))) {
-                MoonJump = MoonJumpForce;
-            }
-            else {
-            }
-            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseMoonJump, &MoonJump, sizeof(MoonJump), 0);
-            if (GetAsyncKeyState(int(HorizontalAccelerationHotkey))) {
-                HortizonalAcceleration = HortizonalAccelerationForce;
-            }
-            else {
-            }
-            WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(UseMoonJump - 0x4), &HortizonalAcceleration, sizeof(HortizonalAcceleration), 0);
+            if (GetAsyncKeyState(int(MoonJumpHotkey[0])))
+                WriteProcessMemory(HandleSonicHeroes, (PBYTE*)UseMoonJump, &MoonJumpForce, sizeof(float), 0);
+            
+            if (GetAsyncKeyState(int(HorizontalAccelerationHotkey[0])))
+                WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(UseMoonJump - 0x4), &HortizonalAccelerationForce, sizeof(float), 0);
 
         }
 
         else{
-            ImGui::Begin("Stage Off");
+            ImGui::Begin("Stage Off - Overrides");
+            ImGui::SetWindowPos(ImVec2(0.0f, 0.0f));
+            ImGui::SetWindowSize(ImVec2(WindowWidth* WidthRatio / 2.84f, WindowHeight* HeightRatio));
+            ImGui::PushItemWidth(210.0f);
 
-            ImGui::PushItemWidth(200.0f);
+            ImGui::Text("All overrides may cause the game to crash!");
+            ImGui::Text(" ");
+            ImGui::Text("Character Override");
+            if (ImGui::Button("Character Change")) {
 
-            ImGui::Text("Typing an invalid number may result in a crash");
-            ImGui::Text("-1 = Dont Override\n\n");
-            ImGui::InputInt("Stage Code",&OverrideStageCode);
-            ImGui::InputInt("Team Code", &OverrideTeamCode);
+                for (short i = 0; i < 4; i++) {
+                    for (short j = 0; j < 3; j++) {
+                        CharacterChangeVarible[i][j] = CharacterChanger(CharacterAdress[i][j], CharacterCalls[i][j]);
+                        WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(CharacterAdress[i][j] + 0x1), &CharacterChangeVarible[i][j], sizeof(int), 0);
+                    }
+                }
+            }
 
+            if (ImGui::Button("Character Override Reset")) {
 
-            ImGui::Checkbox("Stage Codes Menu", &StageCodesMenu);
-            ImGui::Checkbox("Team Codes Menu", &TeamCodesMenu);
-            ImGui::Checkbox("Character Changer Menu", &CharacterChangerMenu);
+                for (short i = 0;i < 4;i++) {
+                    for (short j = 0;j < 3;j++) {
+                        CharacterCalls[i][j] = CharacterCallsReset[i][j];
+                        CharacterChangeVarible[i][j] = CharacterChanger(CharacterAdress[i][j], CharacterCalls[i][j]);
+                        CharacterOverrideListboxSelect[i][j] = i * 3 + j;
+                        WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(CharacterAdress[i][j] + 0x1), &CharacterChangeVarible[i][j], sizeof(int), 0);
+                    }
+                }
+            }
+
+            for (short i = 0; i < 4; i++) {
+                for (short j = 0; j < 3; j++) {
+                    ImGui::Combo(CharacterOverrideListbox[i * 3 + j], &CharacterOverrideListboxSelect[i][j], CharacterOverrideListbox, IM_ARRAYSIZE(CharacterOverrideListbox));
+                    CharacterCalls[i][j] = CharacterCallsReset[(CharacterOverrideListboxSelect[i][j] - (CharacterOverrideListboxSelect[i][j] % 3)) / 3][CharacterOverrideListboxSelect[i][j] % 3];
+                }
+                ImGui::Text("");
+            }
+
+            ImGui::Text("Stage - Team Override");
+            ImGui::Combo("Stage Override", &StageCodesListboxSelect, StageCodesListbox, IM_ARRAYSIZE(StageCodesListbox));
+            switch (StageCodesListboxSelect) {
+            case 1:
+                OverrideStageCode = 2;
+                break;
+            case 2:
+                OverrideStageCode = 3;
+                break;
+            case 3:
+                OverrideStageCode = 4;
+                break;
+            case 4:
+                OverrideStageCode = 5;
+                break;
+            case 5:
+                OverrideStageCode = 6;
+                break;
+            case 6:
+                OverrideStageCode = 7;
+                break;
+            case 7:
+                OverrideStageCode = 8;
+                break;
+            case 8:
+                OverrideStageCode = 9;
+                break;
+            case 9:
+                OverrideStageCode = 10;
+                break;
+            case 10:
+                OverrideStageCode = 11;
+                break;
+            case 11:
+                OverrideStageCode = 12;
+                break;
+            case 12:
+                OverrideStageCode = 13;
+                break;
+            case 13:
+                OverrideStageCode = 14;
+                break;
+            case 14:
+                OverrideStageCode = 15;
+                break;
+            case 15:
+                OverrideStageCode = 16;
+                break;
+            case 16:
+                OverrideStageCode = 17;
+                break;
+            case 17:
+                OverrideStageCode = 18;
+                break;
+            case 18:
+                OverrideStageCode = 19;
+                break;
+            case 19:
+                OverrideStageCode = 20;
+                break;
+            case 20:
+                OverrideStageCode = 21;
+                break;
+            case 21:
+                OverrideStageCode = 22;
+                break;
+            case 22:
+                OverrideStageCode = 23;
+                break;
+            case 23:
+                OverrideStageCode = 24;
+                break;
+            case 24:
+                OverrideStageCode = 29;
+                break;
+            case 25:
+                OverrideStageCode = 30;
+                break;
+            case 26:
+                OverrideStageCode = 31;
+                break;
+            case 27:
+                OverrideStageCode = 32;
+                break;
+            case 28:
+                OverrideStageCode = 33;
+                break;
+            case 29:
+                OverrideStageCode = 34;
+                break;
+            case 30:
+                OverrideStageCode = 35;
+                break;
+            case 31:
+                OverrideStageCode = 52;
+                break;
+            case 32:
+                OverrideStageCode = 53;
+                break;
+            case 33:
+                OverrideStageCode = 54;
+                break;
+            case 34:
+                OverrideStageCode = 55;
+                break;
+            case 35:
+                OverrideStageCode = 56;
+                break;
+            case 36:
+                OverrideStageCode = 57;
+                break;
+            case 37:
+                OverrideStageCode = 58;
+                break;
+            default:
+                OverrideStageCode = 1;
+                break;
+            }
+
+            ImGui::Combo("Team Override", &TeamCodesListboxSelect, TeamCodesListbox, IM_ARRAYSIZE(TeamCodesListbox));
+            switch (TeamCodesListboxSelect) {
+            case 1:
+                OverrideTeamCode = 0;
+                break;
+            case 2:
+                OverrideTeamCode = 1;
+                break;
+            case 3:
+                OverrideTeamCode = 2;
+                break;
+            case 4:
+                OverrideTeamCode = 3;
+                break;
+            default:
+                OverrideTeamCode = -1;
+                break;
+            }
 
             ImGui::End();
 
-            if (CharacterChangerMenu == 1){
-
-                ImGui::Begin("Character Changer");
-
-                ImGui::PushItemWidth(200.0f);
-
-                ImGui::InputInt("<- Sonic", &SonicC);
-                ImGui::InputInt("<- Knuckles", & KnucklesC);
-                ImGui::InputInt("<- Tails\n", &TailsC);
-
-                ImGui::InputInt("<- Shadow", &ShadowC);
-                ImGui::InputInt("<- Omega", &OmegaC);
-                ImGui::InputInt("<- Rouge\n", &RougeC);
-
-                ImGui::InputInt("<- Amy", &AmyC);
-                ImGui::InputInt("<- Big", &BigC);
-                ImGui::InputInt("<- Cream\n", &CreamC);
-
-                ImGui::InputInt("<- Espio", & EspioC);
-                ImGui::InputInt("<- Vector", &VectorC);
-                ImGui::InputInt("<- Bee\n", &BeeC);
-
-                ImGui::Checkbox("Character Codes", & CharacterChangerCodeMenu);
-
-                if (ImGui::Button("Character Change")) {
-
-                    WrSonic = CharacterChanger(Sonic,SonicC);
-                    WrKnuckles = CharacterChanger(Knuckles, KnucklesC);
-                    WrTails = CharacterChanger(Tails, TailsC);
-
-                    WrShadow = CharacterChanger(Shadow, ShadowC);
-                    WrOmega = CharacterChanger(Omega, OmegaC);
-                    WrRouge = CharacterChanger(Rouge, RougeC);
-
-                    WrAmy = CharacterChanger(Amy, AmyC);
-                    WrBig = CharacterChanger(Big, BigC);
-                    WrCream = CharacterChanger(Cream, CreamC);
-
-                    WrEspio = CharacterChanger(Espio, EspioC);
-                    WrVector = CharacterChanger(Vector, VectorC);
-                    WrBee = CharacterChanger(Bee, BeeC);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Sonic + 0x1), &WrSonic, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Knuckles + 0x1), &WrKnuckles, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Tails + 0x1), &WrTails, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Shadow + 0x1), &WrShadow, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Omega + 0x1), &WrOmega, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Rouge + 0x1), &WrRouge, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Amy + 0x1), &WrAmy, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Big + 0x1), &WrBig, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Cream + 0x1), &WrCream, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Espio + 0x1), &WrEspio, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Vector + 0x1), &WrVector, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Bee + 0x1), &WrBee, sizeof(int), 0);
-                }
-                else{
-                }
-
-                if (ImGui::Button("Reset")){
-                    SonicC = 0x005CB170;
-                    KnucklesC = 0x005B6FB0;
-                    TailsC = 0x005C0F20;
-
-                    ShadowC = 0x005CB510;
-                    OmegaC = 0x005B7220;
-                    RougeC = 0x005C1220;
-
-                    AmyC = 0x005CB7D0;
-                    BigC = 0x005B7580;
-                    CreamC = 0x005C1580;
-
-                    EspioC = 0x005CBB40;
-                    VectorC = 0x005B7940;
-                    BeeC = 0x005C1890;
-
-                    WrSonic = CharacterChanger(Sonic, SonicC);
-                    WrKnuckles = CharacterChanger(Knuckles, KnucklesC);
-                    WrTails = CharacterChanger(Tails, TailsC);
-
-                    WrShadow = CharacterChanger(Shadow, ShadowC);
-                    WrOmega = CharacterChanger(Omega, OmegaC);
-                    WrRouge = CharacterChanger(Rouge, RougeC);
-
-                    WrAmy = CharacterChanger(Amy, AmyC);
-                    WrBig = CharacterChanger(Big, BigC);
-                    WrCream = CharacterChanger(Cream, CreamC);
-
-                    WrEspio = CharacterChanger(Espio, EspioC);
-                    WrVector = CharacterChanger(Vector, VectorC);
-                    WrBee = CharacterChanger(Bee, BeeC);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Sonic + 0x1), &WrSonic, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Knuckles + 0x1), &WrKnuckles, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Tails + 0x1), &WrTails, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Shadow + 0x1), &WrShadow, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Omega + 0x1), &WrOmega, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Rouge + 0x1), &WrRouge, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Amy + 0x1), &WrAmy, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Big + 0x1), &WrBig, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Cream + 0x1), &WrCream, sizeof(int), 0);
-
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Espio + 0x1), &WrEspio, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Vector + 0x1), &WrVector, sizeof(int), 0);
-                    WriteProcessMemory(HandleSonicHeroes, (PBYTE*)(Bee + 0x1), &WrBee, sizeof(int), 0);
-                }
-                else{
-                }
-
-                ImGui::End();
-
-                if (CharacterChangerCodeMenu == 1){
-                    ImGui::Begin("Character Codes Menu (Calls)");
-
-                    ImGui::Text("Sonic 6074736\nKnuckles 5992368\nTails 6033184");
-                    ImGui::Text("Shadow 6075664\nOmega 5992992\nRouge 6033952");
-                    ImGui::Text("Amy 6076368\nBig 5993856\nCream 6034816");
-                    ImGui::Text("Espio 6077248\nVector 5994816\nBee 6035600");
-
-                    ImGui::End();
-                }
-                else
-                {
-                }
-            }
-            else{
-            }
-
-            if (StageCodesMenu == 1){
-                ImGui::Begin("Stage Codes Menu");
-
-                ImGui::Text("-1 = Dont Override");
-                ImGui::Text("2 - Seaside Hill");
-                ImGui::Text("3 - Ocean Place");
-                ImGui::Text("4 - Grand Metropolis");
-                ImGui::Text("5 - Power Plant");
-                ImGui::Text("6 - Casino Park");
-                ImGui::Text("7 - Bingo Highway");
-                ImGui::Text("8 - Rail Canyon");
-                ImGui::Text("9 - Bullet Station");
-                ImGui::Text("10 - Frog Forest");
-                ImGui::Text("11 - Lost Jungle");
-                ImGui::Text("12 - Hang Castle");
-                ImGui::Text("13 - Mystic Mansion");
-                ImGui::Text("14 - Egg Fleet");
-                ImGui::Text("15 - Final Fortress");
-                ImGui::Text("16 - EGG HAWK");
-                ImGui::Text("17 - TEAM ?? 1");
-                ImGui::Text("18 - ROBOT CARNIVAL");
-                ImGui::Text("19 - EGG ALBATROS");
-                ImGui::Text("20 - TEAM ?? 2");
-                ImGui::Text("21 - ROBOT STORM");
-                ImGui::Text("22 - EGG EMPEROR");
-                ImGui::Text("23 - METAL MADNESS");
-                ImGui::Text("24 - METAL SONIC");
-                ImGui::Text("29 - Bonus Stage 1");
-                ImGui::Text("30 - Bonus Stage 2");
-                ImGui::Text("31 - Bonus Stage 3");
-                ImGui::Text("32 - Bonus Stage 4");
-                ImGui::Text("33 - Bonus Stage 5");
-                ImGui::Text("34 - Bonus Stage 6");
-                ImGui::Text("35 - Bonus Stage 7");
-                ImGui::Text("52 - Emerald Challange 1");
-                ImGui::Text("53 - Emerald Challange 2");
-                ImGui::Text("54 - Emerald Challange 3");
-                ImGui::Text("55 - Emerald Challange 4");
-                ImGui::Text("56 - Emerald Challange 5");
-                ImGui::Text("57 - Emerald Challange 6");
-                ImGui::Text("58 - Emerald Challange 7");
-
-                ImGui::End();
-            }
-            else{
-            }
-
-            if (TeamCodesMenu == 1){
-                ImGui::Begin("Team Codes Menu");
-
-                ImGui::Text("-1 = Dont Override");
-                ImGui::Text("0 - Team Sonic");
-                ImGui::Text("1 - Team Dark");
-                ImGui::Text("2 - Team Rose");
-                ImGui::Text("3 - Team Chaotix");
-
-                ImGui::End();
-            }
-            else{
-            }
-
-            if (OverrideStageCode != -1){
+            if (OverrideStageCode != 1){
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x008D6720, &OverrideStageCode, sizeof(OverrideStageCode), 0);
-            }
-            else{
             }
 
             if (OverrideTeamCode != -1){
                 WriteProcessMemory(HandleSonicHeroes, (PBYTE*)0x008D6920, &OverrideTeamCode, sizeof(OverrideTeamCode), 0);
-            }
-            else{
             }
             
         }
