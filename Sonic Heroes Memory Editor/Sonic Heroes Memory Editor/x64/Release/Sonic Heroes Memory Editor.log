@@ -1,55 +1,137 @@
 ﻿  Kaynak.cpp
-D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
   ('Kaynak.cpp' kaynak dosyası derleniyor)
-      D:\Visual Studio Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
+      D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
       önceki 'APIENTRY' tanımına bakın
   
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(36,39): warning C4311: 'tür dönüştürme': işaretçi kesilmesi: 'BYTE *' - 'DWORD'
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(36,39): warning C4302: 'tür dönüştürme': 'BYTE *' iken 'DWORD' olarak kesildi
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(56,32): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(60,36): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(53,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(208,22): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(209,23): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(288,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(289,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(290,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(292,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(294,50): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(382,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(383,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(384,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(386,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(387,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(388,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(390,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(391,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(392,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(406,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(407,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(408,54): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(422,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(423,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(424,59): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(474,58): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(476,58): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(494,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(496,59): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(503,68): warning C4244: 'bağımsız değişken': 'double' - 'float' dönüşümü; veri kaybı olabilir
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(513,57): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(514,63): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(533,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(534,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(535,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(536,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(537,51): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(540,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(543,55): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(561,63): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(573,63): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(22,39): warning C4311: 'tür dönüştürme': işaretçi kesilmesi: 'BYTE *' - 'DWORD'
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(22,39): warning C4302: 'tür dönüştürme': 'BYTE *' iken 'DWORD' olarak kesildi
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(41,32): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(45,36): warning C4312: 'tür dönüştürme': 'unsigned long' öğesinden daha büyük boyutlu 'LPVOID *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(38,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(128,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(129,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(130,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(132,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(133,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(134,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(136,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(137,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(138,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(153,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(154,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(155,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(169,47): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(170,47): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(171,47): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(221,46): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(223,46): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(241,47): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(243,47): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(251,57): warning C4244: 'bağımsız değişken': 'double' - 'float' dönüşümü; veri kaybı olabilir
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(261,45): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(262,51): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(282,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(283,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(284,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(286,46): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(287,42): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(370,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(371,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(372,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(373,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(374,43): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(376,47): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(379,47): warning C4312: 'tür dönüştürme': 'DWORD' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(453,55): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(465,55): warning C4312: 'tür dönüştürme': 'int' öğesinden daha büyük boyutlu 'PBYTE *' öğesine dönüştürme
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(60,22): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(61,23): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
   Kod üretiliyor
-  2 of 2110 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 2128 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    50 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Kodun üretilmesi tamamlandı
-  Sonic Heroes Memory Editor.vcxproj -> D:\Visual Studio Projeler\Sonic Heroes Memory Editor\x64\Release\Sonic Heroes Memory Editor.exe
+  Sonic Heroes Memory Editor.vcxproj -> D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\x64\Release\Sonic Heroes Memory Editor.exe

@@ -1,18 +1,19 @@
-﻿  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_glfw.cpp
-  imgui_impl_opengl3.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  Kaynak.cpp
-D:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
+﻿  Kaynak.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
   ('Kaynak.cpp' kaynak dosyası derleniyor)
-      D:\Visual Studio Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
+      D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
       önceki 'APIENTRY' tanımına bakın
   
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(53,23): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(48,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(43,23): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(38,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
+  ('Kaynak.cpp' kaynak dosyası derleniyor)
+  
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(113,22): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(114,23): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(408,68): warning C4244: 'bağımsız değişken': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(418,57): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
 imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetClipboardString
 imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetInputMode
 imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetWindowAttrib
@@ -46,6 +47,8 @@ Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwPollEvents
 Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwInit
 Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwCreateWindow
 Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwMakeContextCurrent
+Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowIcon
+Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowTitle
 Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwWindowShouldClose
 Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowOpacity
-D:\Visual Studio Projeler\Sonic Heroes Memory Editor\Release\Sonic Heroes Memory Editor.exe : fatal error LNK1120: 35 çözümlenmemiş dışlar
+D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Release\Sonic Heroes Memory Editor.exe : fatal error LNK1120: 37 çözümlenmemiş dışlar
