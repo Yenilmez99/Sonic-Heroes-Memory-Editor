@@ -1,54 +1,255 @@
-﻿  Kaynak.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': makro yeniden tanımlama
-  ('Kaynak.cpp' kaynak dosyası derleniyor)
-      D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\GLFW include\GLFW\glfw3.h(123,11):
-      önceki 'APIENTRY' tanımına bakın
-  
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(43,23): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
-  ('Kaynak.cpp' kaynak dosyası derleniyor)
-  
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Funcs.h(38,60): warning C4390: ';': boş denetlenen deyim bulundu; amaçlanan bu muydu?
-  ('Kaynak.cpp' kaynak dosyası derleniyor)
-  
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(113,22): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(114,23): warning C4244: '=': 'int' - 'float' dönüşümü; veri kaybı olabilir
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(408,68): warning C4244: 'bağımsız değişken': 'double' - 'float' dönüşümü; veri kaybı olabilir
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Kaynak.cpp(418,57): warning C4244: '=': 'float' - 'int' dönüşümü; veri kaybı olabilir
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetClipboardString
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetInputMode
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetWindowAttrib
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetTime
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetKey
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetMonitorCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetFramebufferSize
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetClipboardString
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetCursorEnterCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetWindowSize
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetMouseButtonCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetCursor
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwDestroyCursor
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetKeyCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetScrollCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetInputMode
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwCreateStandardCursor
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetError
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetCursorPos
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetWin32Window
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetGamepadState
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetCursorPosCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetKeyName
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwGetCursorPos
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowFocusCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetErrorCallback
-imgui_impl_glfw.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetCharCallback
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSwapBuffers
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwTerminate
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwPollEvents
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwInit
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwCreateWindow
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwMakeContextCurrent
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowIcon
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowTitle
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwWindowShouldClose
-Kaynak.obj : error LNK2001: çözümlenmemiş dış sembol _glfwSetWindowOpacity
-D:\Projeler\Visual Studio Projeler\Sonic Heroes Memory Editor\Release\Sonic Heroes Memory Editor.exe : fatal error LNK1120: 37 çözümlenmemiş dışlar
+﻿  imgui-SFML.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  main.cpp
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\main.cpp(27,22): warning C4834: [[nodiscard]] özniteliğine sahip işlevin dönüş değerinin atılması
+  Memory-Editor.cpp
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(49,20): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(51,13): warning C4018: '<': işaretli/işaretsiz uyuşmazlığı
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(123,12): warning C4244: 'başlatılıyor': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(167,30): warning C4244: '+=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(169,30): warning C4244: '-=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(173,30): warning C4244: '+=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(175,30): warning C4244: '-=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(179,30): warning C4244: '+=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(181,30): warning C4244: '-=': 'float' - 'unsigned short' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(219,54): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(219,54): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(219,54): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(219,54): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(219,54): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,80): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,80): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,80): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,80): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,80): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,55): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,55): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,55): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,55): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(220,55): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(247,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(247,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(247,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(247,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(247,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,79): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,79): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,79): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,79): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,79): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,54): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,54): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,54): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,54): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(248,54): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(265,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(300,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(300,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(300,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(300,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(300,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(301,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(319,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(319,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(319,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(319,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(319,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(320,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(320,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(320,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(320,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(320,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(374,56): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(374,56): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(374,56): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(374,56): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(374,56): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,81): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,81): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,81): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,81): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,81): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(375,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(412,62): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(412,62): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(412,62): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(412,62): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(412,62): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(413,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,84): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,84): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,84): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,84): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,84): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(449,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(450,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(476,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(476,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(476,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(476,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(476,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,87): warning C4244: 'bağımsız değişken': 'double' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(477,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,84): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,84): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,84): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,84): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,84): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,56): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,56): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,56): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,56): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(491,56): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(492,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(608,62): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(608,62): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(608,62): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(608,62): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(608,62): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(609,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,84): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,84): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,84): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,84): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,84): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(669,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(670,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(670,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(670,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(670,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(670,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(703,62): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(703,62): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(703,62): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(703,62): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(703,62): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,85): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,85): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,85): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,85): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,85): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(704,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(794,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(794,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(794,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(794,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(794,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(795,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(795,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(795,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(795,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(795,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(800,72): warning C4244: '=': 'float' - 'unsigned char' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(807,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(807,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(807,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(807,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(807,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,78): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,78): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,78): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,78): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,78): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(837,53): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(895,52): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(895,52): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(895,52): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(895,52): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(895,52): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,78): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,78): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,78): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,78): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,78): warning C4244:         ]
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,53): warning C4244: 'bağımsız değişken': 'T' - 'float' dönüşümü; veri kaybı olabilir
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,53): warning C4244:         with
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,53): warning C4244:         [
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,53): warning C4244:             T=unsigned int
+D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Sonic Heroes Memory Editor\Memory-Editor.cpp(896,53): warning C4244:         ]
+  Kod üretiliyor
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 3188 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Kodun üretilmesi tamamlandı
+  Sonic Heroes Memory Editor.vcxproj -> D:\Test Dosyalari\kod\Sonic Heroes Memory Editor\Release\Sonic Heroes Memory Editor.exe
