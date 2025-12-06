@@ -9,6 +9,9 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
+This project uses SFML (https://www.sfml-dev.org/), which is licensed under the zlib/png license.
+The rest of the project is licensed under MIT License.
+
 A memory editor tool for **Sonic Heroes**.  
 It allows you to inspect and modify runtime memory values to tweak game behavior.
 
@@ -66,6 +69,9 @@ See the `LICENSE` file for details.
 # 🇹🇷 Türkçe
 
 ![Lisans: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+
+Bu proje SFML (https://www.sfml-dev.org/) kullanmaktadır ve zlib/png lisansı ile lisanslanmıştır.
+Projenin geri kalanı MIT Lisansı ile lisanslanmıştır.
 
 **Sonic Heroes** için hazırlanmış bir bellek düzenleyicisidir.  
 Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmenizi sağlar. Böylece oyunu düzenleyebilirsiniz.
