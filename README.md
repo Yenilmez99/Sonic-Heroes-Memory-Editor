@@ -10,7 +10,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 A memory editor tool for **Sonic Heroes**.  
-It allows you to inspect and modify runtime memory values to tweak game behavior, debug save data, or experiment with internal game structures.
+It allows you to inspect and modify runtime memory values to tweak game behavior.
 
 ---
 
@@ -68,7 +68,7 @@ See the `LICENSE` file for details.
 ![Lisans: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 **Sonic Heroes** için hazırlanmış bir bellek düzenleyicisidir.  
-Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmenizi sağlar. Böylece oyunu düzenleyebilir, kayıt dosyalarını debug edebilir veya oyun içi veri yapılarıyla deney yapabilirsiniz.
+Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmenizi sağlar. Böylece oyunu düzenleyebilirsiniz.
 
 ---
 
