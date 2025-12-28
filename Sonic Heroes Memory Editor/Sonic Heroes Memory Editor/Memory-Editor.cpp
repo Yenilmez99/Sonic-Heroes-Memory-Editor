@@ -15,31 +15,48 @@
 #include <string>
 #include <iostream>
 #include <Windows.h>
+#include <TlHelp32.h>
 #include "Memory-Editor.h"
 
-HWND GetHWNDByWindowName(std::wstring WindowName) {
-	// find hwnd by window name
-	LPCWSTR LPCWindowName = WindowName.c_str();
-	HWND WindowNameToFindWindow = FindWindowW(NULL, LPCWindowName);
-	if (WindowNameToFindWindow == NULL) {
-		std::cerr << "Can't found window" << std::endl;
-		return NULL;
+DWORD GetPIDByProcessName(const std::wstring& processName) {
+	DWORD pid = 0;
+	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (snapshot != INVALID_HANDLE_VALUE) {
+		PROCESSENTRY32W entry;
+		entry.dwSize = sizeof(PROCESSENTRY32W);
+		if (Process32FirstW(snapshot, &entry)) {
+			do {
+				if (processName == entry.szExeFile) {
+					pid = entry.th32ProcessID;
+					break;
+				}
+			} while (Process32NextW(snapshot, &entry));
+		}
+		CloseHandle(snapshot);
 	}
-	return WindowNameToFindWindow;
+	return pid;
 }
-HANDLE GetHandleByHWND(HWND WindowNameToFindWindow) {
-	// find handle by hwnd
+struct EnumData {
+	DWORD pid;
+	HWND hWnd;
+};
+BOOL CALLBACK EnumWindowsCallback(HWND hWnd, LPARAM lParam) {
+	EnumData* data = (EnumData*)lParam;
+	DWORD processId = 0;
+	GetWindowThreadProcessId(hWnd, &processId);
 
-	DWORD WindowProcessID;
-	GetWindowThreadProcessId(WindowNameToFindWindow, &WindowProcessID);
-
-	HANDLE ProcessHandle = OpenProcess(PROCESS_ALL_ACCESS, false, WindowProcessID);
-	if (ProcessHandle == NULL) {
-		std::cerr << "Cant Find Process Handle" << std::endl;
-		return NULL;
+	if (data->pid == processId && IsWindowVisible(hWnd)) {
+		data->hWnd = hWnd;
+		return FALSE;
 	}
-	return ProcessHandle;
+	return TRUE;
 }
+HWND GetHwndByPID(DWORD pid) {
+	EnumData data = { pid, NULL };
+	EnumWindows(EnumWindowsCallback, (LPARAM)&data);
+	return data.hWnd;
+}
+
 DWORD GetPointerAddress(const HANDLE ProcessHandle,
 	DWORD GameBaseAddress,
 	DWORD PointerMainAddress,
@@ -76,16 +93,39 @@ MemoryEditor::MemoryEditor(sf::RenderWindow* WindowAddr,sf::Time* DeltaTimeAddr)
 MemoryEditor::~MemoryEditor() {
 }
 bool MemoryEditor::Sonic_Heroes_Is_Open() {
-	this->SonicHeroesHWND = GetHWNDByWindowName(L"SONIC HEROES(TM)");
+	if (this->SonicHeroesHandle != NULL) {
+		DWORD exitCode = 0;
+		if (GetExitCodeProcess(this->SonicHeroesHandle, &exitCode)) {
+			if (exitCode == STILL_ACTIVE) {
+				if (this->SonicHeroesHWND == NULL || !IsWindow(this->SonicHeroesHWND)) {
+					DWORD pid = GetProcessId(this->SonicHeroesHandle);
+					this->SonicHeroesHWND = GetHwndByPID(pid);
+				}
+				return true;
+			}
+		}
 
-	if (this->SonicHeroesHWND == NULL) return false;
-	else;
+		CloseHandle(this->SonicHeroesHandle);
+		this->SonicHeroesHandle = NULL;
+		this->SonicHeroesHWND = NULL;
+		this->FirstTimeOpenedStage = false;
+		return false;
+	}
 
-	this->SonicHeroesHandle = GetHandleByHWND(SonicHeroesHWND);
+	DWORD pid = GetPIDByProcessName(L"Tsonic_win.exe");
 
-	if (this->SonicHeroesHandle == NULL) return false;
-	else return true;
+	if (pid == 0) {
+		return false;
+	}
 
+	this->SonicHeroesHandle = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
+	if (this->SonicHeroesHandle == NULL) {
+		return false;
+	}
+
+	this->SonicHeroesHWND = GetHwndByPID(pid);
+
+	return true;
 }
 void MemoryEditor::LoadCharacterAddress() { // if have a problem 
 
