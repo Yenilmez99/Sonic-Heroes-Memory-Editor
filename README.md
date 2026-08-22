@@ -9,7 +9,6 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-This project uses SFML (https://www.sfml-dev.org/), which is licensed under the zlib/png license.
 The rest of the project is licensed under MIT License.
 
 A memory editor tool for **Sonic Heroes**.  
@@ -21,14 +20,13 @@ It allows you to inspect and modify runtime memory values to tweak game behavior
 
 - Modify values (health, positions)  
 - Lightweight and easy to use  
-- Compatible with Windows (x64 / x86)
+- Compatible with Windows and Linux
 
 ---
 
 ## 📥 Installation & Usage
 
 1. Download the latest release (`.zip` or executable) from the Releases page  
-2. Install Visual C++ Runtime (MS VC 2017–2026)
 3. Run the editor  
 4. Launch **Sonic Heroes**
 
@@ -38,8 +36,8 @@ It allows you to inspect and modify runtime memory values to tweak game behavior
 
 ## 🛠 Requirements
 
-- Windows 10 or above  
-- Microsoft Visual C++ Runtime (2017–2026) (https://learn.microsoft.com/tr-tr/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+- Windows 10 or above
+- Linux Kernel 7+ (It likely works on older versions, but it was tested on Linux 7.2.0)
 - A working Sonic Heroes installation  
 
 ---
@@ -70,7 +68,6 @@ See the `LICENSE` file for details.
 
 ![Lisans: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-Bu proje SFML (https://www.sfml-dev.org/) kullanmaktadır ve zlib/png lisansı ile lisanslanmıştır.
 Projenin geri kalanı MIT Lisansı ile lisanslanmıştır.
 
 **Sonic Heroes** için hazırlanmış bir bellek düzenleyicisidir.  
@@ -82,14 +79,13 @@ Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmeniz
 
 - Değer düzenleme (can, konum)  
 - Hafif ve kullanımı kolay  
-- Windows uyumlu (x64 / x86)
+- Windows ve Linux destekli
 
 ---
 
 ## 📥 Kurulum & Kullanım
 
 1. “Releases” kısmından en güncel sürümü indirin  
-2. Visual C++ Runtime (MS VC 2017–2026) yüklü olmalı
 3. Editörü çalıştırın  
 4. **Sonic Heroes** oyununu açın
 
@@ -99,8 +95,8 @@ Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmeniz
 
 ## 🛠 Gereksinimler
 
-- Windows 10 veya üzeri  
-- Microsoft Visual C++ Runtime (2017–2026) (https://learn.microsoft.com/tr-tr/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+- Windows 10 veya üzeri
+- Linux Kernel 7+ (Muhemelen daha düşük sürümlerde çalışır ama linux 7.2.0 da test edildi)
 - Çalışan Sonic Heroes kurulumu  
 
 ---
