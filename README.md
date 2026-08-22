@@ -9,7 +9,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-The rest of the project is licensed under MIT License.
+The project is licensed under MIT License.
 
 A memory editor tool for **Sonic Heroes**.  
 It allows you to inspect and modify runtime memory values to tweak game behavior.
@@ -68,7 +68,7 @@ See the `LICENSE` file for details.
 
 ![Lisans: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-Projenin geri kalanı MIT Lisansı ile lisanslanmıştır.
+Proje MIT Lisansı ile lisanslanmıştır.
 
 **Sonic Heroes** için hazırlanmış bir bellek düzenleyicisidir.  
 Oyun çalışırken hafızadaki değerleri görüntülemenizi ve değiştirmenizi sağlar. Böylece oyunu düzenleyebilirsiniz.
