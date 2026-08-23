@@ -1,9 +1,13 @@
 #include "imgui.h"
 #include <algorithm>
 #include <cstdint>
+#include <cstring>
+#include <string>
 
 #include "menues.h"
 #include "memprocess.h"
+
+constexpr int EmptyArea = 0x00900000;
 
 shmemeditor::Menues::Menues()
 {
@@ -63,14 +67,14 @@ void shmemeditor::Menues::Ring()
 
     if (ImGui::Checkbox("Freeze", &RingFreeze)) {
         if (RingFreeze){ // freeze
-            editor->write_force(0x0040116E, 0x00900000); // enter stage
-            editor->write_force(0x004016D1, 0x00900000); // enter stage 2
-            editor->write_force(0x004019B1, 0x00900000); // enter stage 3
-            editor->write_force(0x004048A8, 0x00900000); // restart
-            editor->write_force(0x00404A96, 0x00900000); // after death smt
-            editor->write_force(0x00404B54, 0x00900000); // after death smt 2
-            editor->write_force(0x00423A8D, 0x00900000); // super sonic ring lose
-            editor->write_force(0x00423B29, 0x00900000); // ring claim - lose
+            editor->write_force(0x0040116E, EmptyArea); // enter stage
+            editor->write_force(0x004016D1, EmptyArea); // enter stage 2
+            editor->write_force(0x004019B1, EmptyArea); // enter stage 3
+            editor->write_force(0x004048A8, EmptyArea); // restart
+            editor->write_force(0x00404A96, EmptyArea); // after death smt
+            editor->write_force(0x00404B54, EmptyArea); // after death smt 2
+            editor->write_force(0x00423A8D, EmptyArea); // super sonic ring lose
+            editor->write_force(0x00423B29, EmptyArea); // ring claim - lose
             editor->write_force(0x00584A15, Rings); // before death
             editor->write_force(0x0061835B, Rings); // metal sonic 50 ring
         }
@@ -164,9 +168,9 @@ void shmemeditor::Menues::Time()
     bool TimeFreeze = !CurrentState;
     if (ImGui::Checkbox("Freeze", &TimeFreeze)) {
         if (TimeFreeze) {
-            editor->write_force(0x00423F69,0x00900000); // Split second
-            editor->write_force(0x00423E91,0x00900000); // Second
-            editor->write_force(0x00423F0B,0x00900000); // Minute
+            editor->write_force(0x00423F69,EmptyArea); // Split second
+            editor->write_force(0x00423E91,EmptyArea); // Second
+            editor->write_force(0x00423F0B,EmptyArea); // Minute
             editor->write_force<unsigned char>(0x004270D7,0xC3); // Enter Stage
             editor->write_force<unsigned char>(0x00423A0D,0xEB); // Enter Stage 2
         }
@@ -199,17 +203,23 @@ void shmemeditor::Menues::TeamBlast()
 {
     ImGui::Begin("Team Blast");
 
+    float TeamBlastBar = 0;
+    editor->read(0x009DD72C,TeamBlastBar);
+    if (ImGui::SliderFloat("##TeamBlastBar", &TeamBlastBar, 0.0f, 91.0f)) {
+        editor->write(0x009DD72C,TeamBlastBar);
+    }
+
     uint8_t CurrentState = 0;
     editor->read(0x004019CC,CurrentState);
     bool TeamBlastFreeze = CurrentState == 0xFE;
     if (ImGui::Checkbox("Team Blast Always On", &TeamBlastFreeze)) {
         if (TeamBlastFreeze) {
-            editor->write<unsigned char>(0x009DD73C,1);
+            editor->write<unsigned char>(0x009DD73C,1); // instantly get TeamBlast
 
             short new_command = 0x05FE;
             editor->write_force(0x004019CC,new_command); // start stage: inc byte ptr [009DD73C]
-            editor->write_force(0x004048C6,0x00900000); // restart stage: mov [00900000],ebx
-            editor->write_force(0x00404AB4,0x00900000); // die: mov [00900000],ebx
+            editor->write_force(0x004048C6,EmptyArea); // restart stage: mov [00900000],ebx
+            editor->write_force(0x00404AB4,EmptyArea); // die: mov [00900000],ebx
             editor->write_force<unsigned char>(0x00420378,1); // rest 2: mov [ecx+009DD73C],00000001
             editor->write_force<unsigned char>(0x0060A475,1); // Metal Sonic Team Change: mov [009DD73C],00000001
         }
@@ -224,5 +234,96 @@ void shmemeditor::Menues::TeamBlast()
         }
     }
 
+    if (!TeamBlastFreeze) {
+        uint8_t TeamBlastState = 0;
+        editor->read<unsigned char>(0x009DD73C,TeamBlastState);
+        const std::string TeamBlastButtonName = (TeamBlastState == 1) ? "Deactivate Team Blast" : "Activate Team Blast";
+        if (ImGui::Button(TeamBlastButtonName.c_str())) {
+            editor->write<unsigned char>(0x009DD73C,(TeamBlastState != 1));
+            if (TeamBlastBar >= 92) editor->write<float>(0x009DD72C,0.0f);
+        }
+    }
+
     ImGui::End();
+}
+void shmemeditor::Menues::FlyBar()
+{
+    ImGui::Begin("FlyBar");
+
+    ImGui::Text("How Many Unit Fly\n(Default 180)");
+    float Unit = 0.0f;
+    editor->read(0x00789FE4,Unit);
+    if (ImGui::InputFloat("##HowManyUnitFly", &Unit)) {
+        editor->write_force(0x00789FE4,Unit);
+    }
+
+
+    uint8_t CurrentState = 0;
+    editor->read(0x005C56FA,CurrentState);
+    bool Freeze = CurrentState == 0x28;
+    if (ImGui::Checkbox("Infinite Fly", &Freeze)) {
+        editor->write_force(0x005C56FA,Freeze ? 0x28 : 0x22);
+    }
+
+    ImGui::End();
+}
+
+// on Menu
+void shmemeditor::Menues::CharacterOverride()
+{
+    ImGui::Begin("Character Override");
+
+    struct CharacterCodeArea {
+        int Sonic = 0, Tails = 2, Knuckles = 1, Unknown1 = 3;
+        int Shadow = 3, Rouge = 5, Omega = 4, Unknown2 = 3;
+        int Amy = 6, Cream = 8, Big = 7, Unknown3 = 3;
+        int Espio = 9, Charmy = 11, Vector = 10, Unknown4 = 3;
+    };
+
+    CharacterCodeArea CurrentState;;
+    editor->read(0x008BEB84,CurrentState);
+
+    // 008BEB84 Sonic/Tails/Knuckles/03UNK-S/R/O/03UNK-A/C/B/03UNK-E/C/V/03UNK
+    CharacterCodeArea Check;
+    bool Override = memcmp(&CurrentState, &Check, sizeof(int) * 16);
+    if (ImGui::Checkbox("Override Enable", &Override)) {
+        if (!Override) editor->write(0x008BEB84,Check);
+    }
+    
+    const char* ComboBoxLabel[12] = {
+	"Sonic", "Tails", "Knuckles",
+	"Shadow", "Rouge", "Omega",
+	"Amy", "Cream", "Big",
+	"Espio", "Charmy", "Vector"
+	};
+    const char* ItemLabel[12] = {
+	"Sonic", "Knuckles", "Tails",
+	"Shadow", "Omega", "Rouge",
+	"Amy", "Big", "Cream",
+	"Espio", "Vector", "Charmy"
+	};
+    int StateToInt[16] = {};
+    memcpy(StateToInt, &CurrentState, sizeof(int) * 16);
+
+    for (int i = 0, j= 0; i<16; ++i) {
+        if ((i+1) % 4 == 0) continue;
+        if (ImGui::Combo(ComboBoxLabel[j],&StateToInt[i],ItemLabel, IM_ARRAYSIZE(ComboBoxLabel))) {
+            editor->write(0x008BEB84 + 0x4 * i,StateToInt[i]);
+        }
+        ++j;
+    }
+
+    ImGui::Text("WARNING");
+    ImGui::Text("If you place two or more characters of the same role\non the same team, the game will crash when exiting the stage.");
+
+
+    ImGui::End();
+}
+void shmemeditor::Menues::TeamOverride()
+{
+    
+}
+void shmemeditor::Menues::StageOverride()
+{
+    
 }

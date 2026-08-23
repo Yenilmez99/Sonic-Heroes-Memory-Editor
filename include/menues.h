@@ -9,12 +9,18 @@ namespace shmemeditor {
     class Menues {
     private:
         yen::memprocess::Process* editor = nullptr;
+
         void Extra();
         void Ring();
         void Power();
         void Time();
         void Point();
         void TeamBlast();
+        void FlyBar();
+
+        void CharacterOverride();
+        void TeamOverride();
+        void StageOverride();
     
     public:
         Menues();
@@ -47,10 +53,15 @@ namespace shmemeditor {
                 Time();
                 Point();
                 TeamBlast();
+                FlyBar();
 
                 return;
             }
             else if (GameState < 2) { // Menu
+                CharacterOverride();
+                TeamOverride();
+                StageOverride();
+
                 return;
             }
             else { // Others
