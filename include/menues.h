@@ -17,6 +17,7 @@ namespace shmemeditor {
         void Point();
         void TeamBlast();
         void FlyBar();
+        void ColorEditor();
 
         void CharacterOverride();
         void TeamOverride();
@@ -54,6 +55,7 @@ namespace shmemeditor {
                 Point();
                 TeamBlast();
                 FlyBar();
+                ColorEditor();
 
                 return;
             }

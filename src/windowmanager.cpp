@@ -35,6 +35,7 @@ shmemeditor::WindowManager::~WindowManager()
 bool shmemeditor::WindowManager::init(const std::string& WindowName, const std::array<float, 2> Size)
 {
     if (window) glfwDestroyWindow(window);
+    window = nullptr;
     window = glfwCreateWindow(Size[0], Size[1], WindowName.c_str(), NULL, NULL);
 
     if (window == nullptr) {
@@ -66,6 +67,7 @@ void shmemeditor::WindowManager::imgui_init()
 void shmemeditor::WindowManager::terminate()
 {
     if (window) glfwDestroyWindow(window);
+    window = nullptr;
     glfwTerminate();
     window = nullptr;
     std::cout << "GLFW Terminated" << std::endl;

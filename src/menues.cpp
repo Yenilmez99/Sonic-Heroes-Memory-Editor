@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cstring>
 #include <string>
+#include <vector>
 
 #include "menues.h"
 #include "memprocess.h"
@@ -267,6 +268,92 @@ void shmemeditor::Menues::FlyBar()
 
     ImGui::End();
 }
+void shmemeditor::Menues::ColorEditor()
+{
+    ImGui::Begin("Color Editor");
+
+    struct CharacterData {
+        const char* Name = nullptr;
+        const char* EffectNames[6];
+        std::vector<int> Address;
+    };
+    static const CharacterData AllCHData[12] {
+        {"Sonic",
+            {"Jump Balls", "Trails", "Tornado",     "Dash Effect", "Jump Dash Rings", "Sonic Overdrive Ball"},
+            {0x8C729C,      0x8CF694, 0x8DE4F8,      0x8CF094,      0x8CEF40,          0x8C72AC}
+        },
+        {"Tails",
+            {"Jump Balls", "Trails", "Fly Effect",  "Dash Effect"},
+            {0x782584,      0x8CF69C, 0x8CEF48,      0x8CF09C}
+        },
+        {"Knuckles",
+            {"Jump Balls", "Trails", "Combo Effect","Dash Effect"},
+            {0x781F6C,      0x8CF698, 0x8CEF44,      0x8CF098}
+        },
+        {"Shadow",
+            {"Jump Balls", "Trails", "Tornado",     "Dash Effect", "Jump Dash Rings"},
+            {0x8C72A0,      0x8CF6A0, 0x8DE4FC,      0x8CF0A0,      0x8CEF4C}
+        },
+        {"Rouge",
+            {"Jump Balls", "Trails", "Fly Effect",  "Dash Effect"},
+            {0x782588,      0x8CF6A8, 0x8CEF54,      0x8CF0A8}
+        },
+        {"Omega",
+            {"Jump Balls", "Trails", "Combo Effect","Dash Effect"},
+            {0x781F70,      0x8CF6A4, 0x8CEF50,      0x8CF0A4}
+        },
+        {"Amy",
+            {"Jump Balls", "Trails", "Tornado",     "Dash Effect", "Jump Dash Rings"},
+            {0x8C72A4,      0x8CF6AC, 0x8DE504,      0x8CF0AC,      0x8CEF58}
+        },
+        {"Cream",
+            {"Jump Balls", "Trails", "Fly Effect",  "Dash Effect"},
+            {0x78258C,      0x8CF6B4, 0x8CEF60,      0x8CF0B4}
+        },
+        {"Big",
+            {"Jump Balls", "Trails", "Combo Effect","Dash Effect"},
+            {0x781F74,      0x8CF6B0, 0x8CEF5C,      0x8CF0B0}
+        },
+        {"Espio",
+            {"Jump Balls", "Trails", "Tornado",     "Dash Effect", "Jump Dash Rings"},
+            {0x8C72A8,      0x8CF6B8, 0x8DE500,      0x8CF0B8,      0x8CEF64}
+        },
+        {"Charmy",
+            {"Jump Balls", "Trails", "Fly Effect",  "Dash Effect"},
+            {0x782590,      0x8CF6C0, 0x8CEF6C,      0x8CF0C0}
+        },
+        {"Vector",
+            {"Jump Balls", "Trails", "Combo Effect","Dash Effect"},
+            {0x781F78,      0x8CF6BC, 0x8CEF68,      0x8CF0BC}
+        }
+    };
+    static const char* CLCHItemLabel[12] = {
+	"Sonic", "Tails", "Knuckles",
+	"Shadow", "Rouge", "Omega",
+	"Amy", "Cream", "Big",
+	"Espio", "Charmy", "Vector"
+	};
+    static int selectedCH = 0;
+    static int selectedEF = 0;
+
+    if (ImGui::Combo("Character", &selectedCH,CLCHItemLabel,IM_ARRAYSIZE(CLCHItemLabel))) {
+        selectedEF = 0;
+    }
+    int arrsize = (selectedCH % 3) ? 4 : 5;
+    if (selectedCH == 0) arrsize = 6;
+    ImGui::Combo("Effect", &selectedEF,AllCHData[selectedCH].EffectNames,arrsize);
+
+    ImU32 U32Color = 0;
+    editor->read(AllCHData[selectedCH].Address.at(selectedEF), U32Color);
+    ImVec4 readColor = ImGui::ColorConvertU32ToFloat4(U32Color);
+    float fColor[4] = {readColor.x,readColor.y,readColor.z,readColor.w};
+    if (ImGui::ColorEdit4("Set Color", fColor)) {
+        U32Color = ImGui::ColorConvertFloat4ToU32({fColor[0],fColor[1],fColor[2],fColor[3]});
+        editor->write_force(AllCHData[selectedCH].Address.at(selectedEF), U32Color);
+    }
+
+    ImGui::End();
+}
 
 // on Menu
 void shmemeditor::Menues::CharacterOverride()
@@ -280,34 +367,31 @@ void shmemeditor::Menues::CharacterOverride()
         int Espio = 9, Charmy = 11, Vector = 10, Unknown4 = 3;
     };
 
-    CharacterCodeArea CurrentState;;
-    editor->read(0x008BEB84,CurrentState);
-
     // 008BEB84 Sonic/Tails/Knuckles/03UNK-S/R/O/03UNK-A/C/B/03UNK-E/C/V/03UNK
-    CharacterCodeArea Check;
-    bool Override = memcmp(&CurrentState, &Check, sizeof(int) * 16);
-    if (ImGui::Checkbox("Override Enable", &Override)) {
-        if (!Override) editor->write(0x008BEB84,Check);
-    }
+    CharacterCodeArea Clear = {};
+    if (ImGui::Button("Clear")) editor->write(0x008BEB84,Clear);
     
-    const char* ComboBoxLabel[12] = {
+    static const char* CHComboBoxLabel[12] = {
 	"Sonic", "Tails", "Knuckles",
 	"Shadow", "Rouge", "Omega",
 	"Amy", "Cream", "Big",
 	"Espio", "Charmy", "Vector"
 	};
-    const char* ItemLabel[12] = {
+    static const char* CHItemLabel[12] = {
 	"Sonic", "Knuckles", "Tails",
 	"Shadow", "Omega", "Rouge",
 	"Amy", "Big", "Cream",
 	"Espio", "Vector", "Charmy"
 	};
+
+    CharacterCodeArea CurrentState;;
+    editor->read(0x008BEB84,CurrentState);
     int StateToInt[16] = {};
     memcpy(StateToInt, &CurrentState, sizeof(int) * 16);
 
     for (int i = 0, j= 0; i<16; ++i) {
         if ((i+1) % 4 == 0) continue;
-        if (ImGui::Combo(ComboBoxLabel[j],&StateToInt[i],ItemLabel, IM_ARRAYSIZE(ComboBoxLabel))) {
+        if (ImGui::Combo(CHComboBoxLabel[j],&StateToInt[i],CHItemLabel, IM_ARRAYSIZE(CHComboBoxLabel))) {
             editor->write(0x008BEB84 + 0x4 * i,StateToInt[i]);
         }
         ++j;
@@ -321,9 +405,86 @@ void shmemeditor::Menues::CharacterOverride()
 }
 void shmemeditor::Menues::TeamOverride()
 {
-    
+    ImGui::Begin("Team Override");
+
+    static const char* TMItemLabel[4] = {
+        "Team Sonic",
+        "Team Dark",
+        "Team Rose",
+        "Team Chaotix"
+    };
+    int EmptyAreaTMO = EmptyArea + 0xC;
+    int Select = 0;
+    editor->read(EmptyAreaTMO,Select);
+    if (ImGui::Combo("Stage Override",&Select,TMItemLabel,IM_ARRAYSIZE(TMItemLabel))) {
+        editor->write(EmptyAreaTMO,Select);
+    }
+
+    int ReadCode = 0x00022887;
+    editor->read(0x0044B66E,ReadCode);
+    bool Override = ReadCode == 0x90000C05;
+    if (ImGui::Checkbox("Override Enable", &Override)) {
+        editor->write_force(0x0044B66E, Override ? 0x90000C05 : 0x00022887);
+    }
+
+    ImGui::End();
 }
 void shmemeditor::Menues::StageOverride()
 {
+    ImGui::Begin("Stage Override");
+
+    static const char* STGComboBoxLabel[37] = {
+	"Seaside Hill" ,"Ocean Place" ,"Grand Metropolis",
+    "Power Plant" ,"Casino Park" ,"Bingo Highway" ,
+	"Rail Canyon" ,"Bullet Station" ,"Frog Forest",
+	"Lost Jungle" ,"Hang Castle" ,"Mystic Mansion" ,
+	"Egg Fleet" ,"Final Fortress" ,"EGG HAWK" ,
+	"TEAM ?? 1" ,"ROBOT CARNIVAL" ,"EGG ALBATROS" ,
+	"TEAM ?? 2" ,"ROBOT STORM" ,"EGG EMPEROR" ,
+	"METAL MADNESS" ,"METAL SONIC" ,"Bonus Stage 1" ,
+	"Bonus Stage 2" ,"Bonus Stage 3" ,"Bonus Stage 4" ,
+	"Bonus Stage 5" ,"Bonus Stage 6" ,"Bonus Stage 7" ,
+	"Emerald Challange 1" ,"Emerald Challange 2" ,"Emerald Challange 3" ,
+	"Emerald Challange 4" ,"Emerald Challange 5" ,"Emerald Challange 6" ,
+	"Emerald Challange 7" };
+    
+    // Welcome to code hell
+    int EmptyAreaSTGO = EmptyArea + 0x8;
+    int StageState = 0;
+    editor->read(EmptyArea + 0x8,StageState);
+    int StageCode = 0;
+    if (StageState > 1 && StageState <= 24) StageCode = StageState - 2;
+    else if (StageState > 28 && StageState <= 35) StageCode = StageState - 6;
+    else if (StageState > 51 && StageState <= 58) StageCode = StageState - 22;
+    if (ImGui::Combo("Stage Override", &StageCode, STGComboBoxLabel, IM_ARRAYSIZE(STGComboBoxLabel))) {
+        int OverrideCode = 2;
+        if (StageCode <= 22) OverrideCode = StageCode + 2;
+        else if (StageCode > 22 && StageCode <= 29) OverrideCode = StageCode + 6;
+        else if (StageCode > 29 && StageCode <= 36) OverrideCode = StageCode + 22;
+        else OverrideCode = 2;
+
+        editor->write(EmptyAreaSTGO,OverrideCode);
+    }
+
+    uint8_t CurrentState = 0;
+    editor->read(0x0044B6A9,CurrentState);
+    bool Override = CurrentState == 0x5;
+    if (ImGui::Checkbox("Override Enable", &Override)) {
+        // it reads new stage data from 0x900008
+        unsigned char edited_code[6] = {0x05,0x08,0x00,0x90,0x00,0x90};
+        unsigned char orginal_code[6] = {0x04,0x85,0x98,0x38,0x74,0x00};
+        editor->write_force(0x0044B6A9,Override ? edited_code : orginal_code,6);
+
+        if (Override) {
+            int OverrideCode = 2;
+            if (StageCode <= 22) OverrideCode = StageCode + 2;
+            else if (StageCode > 22 && StageCode <= 29) OverrideCode = StageCode + 6;
+            else if (StageCode > 29 && StageCode <= 36) OverrideCode = StageCode + 22;
+            else OverrideCode = 2;
+            editor->write(EmptyAreaSTGO,OverrideCode);
+        }
+    }
+
+    ImGui::End();
     
 }
