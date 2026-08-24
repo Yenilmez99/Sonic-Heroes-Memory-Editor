@@ -30,5 +30,6 @@
 *.out
 *.app
 
-# Files
+# Other Files
 opencode.json
+.env
