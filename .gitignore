@@ -29,7 +29,3 @@
 *.exe
 *.out
 *.app
-
-# Other Files
-opencode.json
-.env
