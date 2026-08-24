@@ -19,9 +19,9 @@ namespace shmemeditor {
         void FlyBar();
         void ColorEditor();
 
-        void CharacterOverride();
-        void TeamOverride();
-        void StageOverride();
+        void CharacterOverwrite();
+        void TeamOverwrite();
+        void StageOverwrite();
     
     public:
         Menues();
@@ -60,9 +60,9 @@ namespace shmemeditor {
                 return;
             }
             else if (GameState < 2) { // Menu
-                CharacterOverride();
-                TeamOverride();
-                StageOverride();
+                CharacterOverwrite();
+                TeamOverwrite();
+                StageOverwrite();
 
                 return;
             }

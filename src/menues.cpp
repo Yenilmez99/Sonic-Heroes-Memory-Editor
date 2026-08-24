@@ -356,9 +356,9 @@ void shmemeditor::Menues::ColorEditor()
 }
 
 // on Menu
-void shmemeditor::Menues::CharacterOverride()
+void shmemeditor::Menues::CharacterOverwrite()
 {
-    ImGui::Begin("Character Override");
+    ImGui::Begin("Character Overwrite");
 
     struct CharacterCodeArea {
         int Sonic = 0, Tails = 2, Knuckles = 1, Unknown1 = 3;
@@ -403,9 +403,9 @@ void shmemeditor::Menues::CharacterOverride()
 
     ImGui::End();
 }
-void shmemeditor::Menues::TeamOverride()
+void shmemeditor::Menues::TeamOverwrite()
 {
-    ImGui::Begin("Team Override");
+    ImGui::Begin("Team Overwrite");
 
     static const char* TMItemLabel[4] = {
         "Team Sonic",
@@ -416,22 +416,22 @@ void shmemeditor::Menues::TeamOverride()
     int EmptyAreaTMO = EmptyArea + 0xC;
     int Select = 0;
     editor->read(EmptyAreaTMO,Select);
-    if (ImGui::Combo("Stage Override",&Select,TMItemLabel,IM_ARRAYSIZE(TMItemLabel))) {
+    if (ImGui::Combo("Team Overwrite",&Select,TMItemLabel,IM_ARRAYSIZE(TMItemLabel))) {
         editor->write(EmptyAreaTMO,Select);
     }
 
     int ReadCode = 0x00022887;
     editor->read(0x0044B66E,ReadCode);
     bool Override = ReadCode == 0x90000C05;
-    if (ImGui::Checkbox("Override Enable", &Override)) {
+    if (ImGui::Checkbox("Overwrite Enable", &Override)) {
         editor->write_force(0x0044B66E, Override ? 0x90000C05 : 0x00022887);
     }
 
     ImGui::End();
 }
-void shmemeditor::Menues::StageOverride()
+void shmemeditor::Menues::StageOverwrite()
 {
-    ImGui::Begin("Stage Override");
+    ImGui::Begin("Stage Overwrite");
 
     static const char* STGComboBoxLabel[37] = {
 	"Seaside Hill" ,"Ocean Place" ,"Grand Metropolis",
@@ -456,32 +456,32 @@ void shmemeditor::Menues::StageOverride()
     if (StageState > 1 && StageState <= 24) StageCode = StageState - 2;
     else if (StageState > 28 && StageState <= 35) StageCode = StageState - 6;
     else if (StageState > 51 && StageState <= 58) StageCode = StageState - 22;
-    if (ImGui::Combo("Stage Override", &StageCode, STGComboBoxLabel, IM_ARRAYSIZE(STGComboBoxLabel))) {
-        int OverrideCode = 2;
-        if (StageCode <= 22) OverrideCode = StageCode + 2;
-        else if (StageCode > 22 && StageCode <= 29) OverrideCode = StageCode + 6;
-        else if (StageCode > 29 && StageCode <= 36) OverrideCode = StageCode + 22;
-        else OverrideCode = 2;
+    if (ImGui::Combo("Stage Overwrite", &StageCode, STGComboBoxLabel, IM_ARRAYSIZE(STGComboBoxLabel))) {
+        int OverwriteCode = 2;
+        if (StageCode <= 22) OverwriteCode = StageCode + 2;
+        else if (StageCode > 22 && StageCode <= 29) OverwriteCode = StageCode + 6;
+        else if (StageCode > 29 && StageCode <= 36) OverwriteCode = StageCode + 22;
+        else OverwriteCode = 2;
 
-        editor->write(EmptyAreaSTGO,OverrideCode);
+        editor->write(EmptyAreaSTGO,OverwriteCode);
     }
 
     uint8_t CurrentState = 0;
     editor->read(0x0044B6A9,CurrentState);
-    bool Override = CurrentState == 0x5;
-    if (ImGui::Checkbox("Override Enable", &Override)) {
+    bool Overwrite = CurrentState == 0x5;
+    if (ImGui::Checkbox("Overwrite Enable", &Overwrite)) {
         // it reads new stage data from 0x900008
         unsigned char edited_code[6] = {0x05,0x08,0x00,0x90,0x00,0x90};
         unsigned char orginal_code[6] = {0x04,0x85,0x98,0x38,0x74,0x00};
-        editor->write_force(0x0044B6A9,Override ? edited_code : orginal_code,6);
+        editor->write_force(0x0044B6A9,Overwrite ? edited_code : orginal_code,6);
 
-        if (Override) {
-            int OverrideCode = 2;
-            if (StageCode <= 22) OverrideCode = StageCode + 2;
-            else if (StageCode > 22 && StageCode <= 29) OverrideCode = StageCode + 6;
-            else if (StageCode > 29 && StageCode <= 36) OverrideCode = StageCode + 22;
-            else OverrideCode = 2;
-            editor->write(EmptyAreaSTGO,OverrideCode);
+        if (Overwrite) {
+            int OverwriteCode = 2;
+            if (StageCode <= 22) OverwriteCode = StageCode + 2;
+            else if (StageCode > 22 && StageCode <= 29) OverwriteCode = StageCode + 6;
+            else if (StageCode > 29 && StageCode <= 36) OverwriteCode = StageCode + 22;
+            else OverwriteCode = 2;
+            editor->write(EmptyAreaSTGO,OverwriteCode);
         }
     }
 
