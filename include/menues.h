@@ -18,6 +18,8 @@ namespace shmemeditor {
         void TeamBlast();
         void FlyBar();
         void ColorEditor();
+        void Position();
+        void Lives();
 
         void CharacterOverwrite();
         void TeamOverwrite();
@@ -56,6 +58,8 @@ namespace shmemeditor {
                 TeamBlast();
                 FlyBar();
                 ColorEditor();
+                Position();
+                Lives();
 
                 return;
             }

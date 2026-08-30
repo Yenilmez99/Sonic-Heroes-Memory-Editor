@@ -7,8 +7,15 @@
 
 #include "menues.h"
 #include "memprocess.h"
+#include "addresses.h"
 
-constexpr int EmptyArea = 0x00900000;
+namespace memadr = shmemeditor::addresses;
+namespace memofs = shmemeditor::offsets;
+
+constexpr int EmptyArea =           0x00900000; // Empty Area
+constexpr int EmptyAreaSTGO =       EmptyArea + 0x8; // Empty for Stage Overwrite
+constexpr int EmptyAreaTMO =        EmptyArea + 0xC; // Empty for Team Overwrite
+constexpr int EmptyAreaDisableGui = EmptyArea + 0x30; // Empty Area for Disable Gui new function
 
 shmemeditor::Menues::Menues()
 {
@@ -23,7 +30,6 @@ void shmemeditor::Menues::init()
     terminate();
     editor = new yen::memprocess::Process(yen::memprocess::get_pid(L"Tsonic_win.exe"));
 }
-
 void shmemeditor::Menues::terminate()
 {
     if (editor) delete editor;
@@ -32,6 +38,54 @@ void shmemeditor::Menues::terminate()
 
 void shmemeditor::Menues::Extra()
 {
+    ImGui::Begin("Extras");
+    
+    const uintptr_t ActiveRoleAddress = editor->get_pointer_address(memadr::ActiveRoleBase, memofs::ActiveRole);
+    int activeRole = 0;
+    editor->read(ActiveRoleAddress,activeRole);
+    ImGui::Text("Active Role S/P/F");
+    if (ImGui::SliderInt("##ActiveRole", &activeRole, 0, 2)) {
+        editor->write(ActiveRoleAddress,activeRole);
+    }
+
+    if (ImGui::Button("Quick Exit")) editor->write(memadr::GameState, 11);
+
+    uint8_t CurrentState = 0;
+    editor->read(0x006AA46F,CurrentState);
+    bool DisableGui = CurrentState == 0xE9;
+    if (ImGui::Checkbox("Disable GUI", &DisableGui)) {
+        if (DisableGui) {
+            uint8_t DisableGuiNewFunction[31] = {
+                0x80, 0x3D, 0xF0, 0x66, 0x8D, 0x00, 0x04,
+                0x74, 0x11,
+                0x80, 0x3D, 0xF0, 0x66, 0x8D, 0x00, 0x05,
+                0x74, 0x08,
+                0xD9, 0x44, 0x24, 0x28,
+                0xD8, 0x4C, 0x24, 0x20,
+                0xE9, 0x28, 0xA4, 0xDA, 0xFF
+            };
+            editor->write(EmptyAreaDisableGui,DisableGuiNewFunction,31);
+
+            uint8_t JumpToNewFunction[8] = {
+                0xE9, 0xBC, 0x5B, 0x25, 0x00,
+                0x90,
+                0x90,
+                0x90
+            };
+            editor->write_force(0x006AA46F,JumpToNewFunction,8);
+        }
+        else { // Restore Jump To New Function
+            uint8_t JumpToNewFunction[8] = {
+                0xD9, 0x44, 0x24, 0x28,
+                0xD8, 0x4C, 0x24, 0x20
+            };
+            editor->write_force(0x006AA46F,JumpToNewFunction,8);
+        
+        }
+
+    }
+
+    ImGui::End();
 
 }
 void shmemeditor::Menues::Ring()
@@ -39,7 +93,7 @@ void shmemeditor::Menues::Ring()
     ImGui::Begin("Ring Edit");
 
     int Rings = 0;
-    editor->read(0x009DD70C, Rings);
+    editor->read(memadr::Ring, Rings);
 
     uint8_t CurrentState = 0;
     editor->read(0x00423B2A, CurrentState);
@@ -47,7 +101,7 @@ void shmemeditor::Menues::Ring()
 
     if (ImGui::InputInt("##Rings", &Rings)) {
         Rings = std::clamp(Rings,0,999);
-        editor->write(0x009DD70C, Rings);
+        editor->write(memadr::Ring, Rings);
 
         if (RingFreeze) {
             editor->write_force(0x00584A15, Rings); // Quick update
@@ -58,7 +112,7 @@ void shmemeditor::Menues::Ring()
     if (ImGui::Button("Add 50 Ring")) {
         Rings += 50;
         Rings = std::clamp(Rings,0,999);
-        editor->write(0x009DD70C, Rings);
+        editor->write(memadr::Ring, Rings);
 
         if (RingFreeze) {
             editor->write_force(0x00584A15, Rings); // Quick update
@@ -80,14 +134,14 @@ void shmemeditor::Menues::Ring()
             editor->write_force(0x0061835B, Rings); // metal sonic 50 ring
         }
         else { // restore
-            editor->write_force(0x0040116E, 0x009DD70C); // enter stage
-            editor->write_force(0x004016D1, 0x009DD70C); // enter stage 2
-            editor->write_force(0x004019B1, 0x009DD70C); // enter stage 3
-            editor->write_force(0x004048A8, 0x009DD70C); // restart
-            editor->write_force(0x00404A96, 0x009DD70C); // after death smt
-            editor->write_force(0x00404B54, 0x009DD70C); // after death smt 2
-            editor->write_force(0x00423A8D, 0x009DD70C); // super sonic ring lose
-            editor->write_force(0x00423B29, 0x009DD70C); // ring claim - lose
+            editor->write_force(0x0040116E, memadr::Ring); // enter stage
+            editor->write_force(0x004016D1, memadr::Ring); // enter stage 2
+            editor->write_force(0x004019B1, memadr::Ring); // enter stage 3
+            editor->write_force(0x004048A8, memadr::Ring); // restart
+            editor->write_force(0x00404A96, memadr::Ring); // after death smt
+            editor->write_force(0x00404B54, memadr::Ring); // after death smt 2
+            editor->write_force(0x00423A8D, memadr::Ring); // super sonic ring lose
+            editor->write_force(0x00423B29, memadr::Ring); // ring claim - lose
             editor->write_force(0x00584A15, 0x0); // before death
             editor->write_force(0x0061835B, 0x32); // metal sonic 50 ring
         }
@@ -100,7 +154,7 @@ void shmemeditor::Menues::Power()
 {
     ImGui::Begin("Character Power");
 
-    uintptr_t Address = editor->get_pointer_address(0x00A4C268, {0x208});
+    uintptr_t Address = editor->get_pointer_address(memadr::PowerBase, memofs::Power);
     if (!Address) {
         ImGui::Text("Couldnt find address");
         ImGui::End();
@@ -149,19 +203,19 @@ void shmemeditor::Menues::Time()
     ImGui::Begin("Time");
 
     uint8_t Time[3] = {};
-    editor->read(0x009DD708,Time,3);
+    editor->read(memadr::Time,Time,3);
     int TimeInt[3] = {Time[2],Time[1],Time[0]};
     if (ImGui::InputInt3("##Time", TimeInt)) {
         TimeInt[0] = std::clamp(TimeInt[0],0,99);
         TimeInt[1] = std::clamp(TimeInt[1],0,59);
         TimeInt[2] = std::clamp(TimeInt[2],0,59);
         Time[0] = TimeInt[2];   Time[1] = TimeInt[1];   Time[2] = TimeInt[0];
-        editor->write(0x009DD708,Time,3);
+        editor->write(memadr::Time,Time,3);
     }
 
     if (ImGui::Button("Clear Time")) {
         uint8_t ClearTime[3] = {0,0,0};
-        editor->write(0x009DD708,ClearTime,3);
+        editor->write(memadr::Time,ClearTime,3);
     }
 
     uint8_t CurrentState = 0;
@@ -176,9 +230,9 @@ void shmemeditor::Menues::Time()
             editor->write_force<unsigned char>(0x00423A0D,0xEB); // Enter Stage 2
         }
         else {
-            editor->write_force(0x00423F69,0x009DD708);
-            editor->write_force(0x00423E91,0x009DD709);
-            editor->write_force(0x00423F0B,0x009DD70A);
+            editor->write_force(0x00423F69,memadr::Time);
+            editor->write_force(0x00423E91,memadr::Time + 1);
+            editor->write_force(0x00423F0B,memadr::Time + 2);
             editor->write_force<unsigned char>(0x004270D7,0xC6);
             editor->write_force<unsigned char>(0x00423A0D,0x75);
         }
@@ -191,11 +245,11 @@ void shmemeditor::Menues::Point()
     ImGui::Begin("Point");
 
     int Points[3] = {};
-    editor->read(0x009DD6C0,Points,12);
+    editor->read(memadr::Point,Points,12);
     int TotalPoint = Points[0] + Points[1] + Points[2];
     ImGui::Text("Total Point: %d",TotalPoint);
     if (ImGui::InputInt3("S/F/P", Points)) {
-        editor->write(0x009DD6C0,Points,12);
+        editor->write(memadr::Point,Points,12);
     }
 
     ImGui::End();
@@ -205,9 +259,9 @@ void shmemeditor::Menues::TeamBlast()
     ImGui::Begin("Team Blast");
 
     float TeamBlastBar = 0;
-    editor->read(0x009DD72C,TeamBlastBar);
+    editor->read(memadr::TeamBlastBar,TeamBlastBar);
     if (ImGui::SliderFloat("##TeamBlastBar", &TeamBlastBar, 0.0f, 91.0f)) {
-        editor->write(0x009DD72C,TeamBlastBar);
+        editor->write(memadr::TeamBlastBar,TeamBlastBar);
     }
 
     uint8_t CurrentState = 0;
@@ -215,7 +269,7 @@ void shmemeditor::Menues::TeamBlast()
     bool TeamBlastFreeze = CurrentState == 0xFE;
     if (ImGui::Checkbox("Team Blast Always On", &TeamBlastFreeze)) {
         if (TeamBlastFreeze) {
-            editor->write<unsigned char>(0x009DD73C,1); // instantly get TeamBlast
+            editor->write<unsigned char>(memadr::TeamBlastState,1); // instantly get TeamBlast
 
             short new_command = 0x05FE;
             editor->write_force(0x004019CC,new_command); // start stage: inc byte ptr [009DD73C]
@@ -227,8 +281,8 @@ void shmemeditor::Menues::TeamBlast()
         else {
             short orginal = 0x1D89;
             editor->write_force(0x004019CC,orginal); // start stage: mov [009DD73C],ebx
-            editor->write_force(0x004048C6,0x009DD73C); // restart stage: mov [009DD73C],ebx
-            editor->write_force(0x00404AB4,0x009DD73C); // die: mov [009DD73C],ebx
+            editor->write_force(0x004048C6,memadr::TeamBlastState); // restart stage: mov [009DD73C],ebx
+            editor->write_force(0x00404AB4,memadr::TeamBlastState); // die: mov [009DD73C],ebx
             editor->write_force<unsigned char>(0x00420378,0); // rest 2: mov [ecx+009DD73C],00000000
             editor->write_force<unsigned char>(0x0060A475,0); // Metal Sonic Team Change: mov [009DD73C],00000000
         
@@ -237,11 +291,11 @@ void shmemeditor::Menues::TeamBlast()
 
     if (!TeamBlastFreeze) {
         uint8_t TeamBlastState = 0;
-        editor->read<unsigned char>(0x009DD73C,TeamBlastState);
+        editor->read<unsigned char>(memadr::TeamBlastState,TeamBlastState);
         const std::string TeamBlastButtonName = (TeamBlastState == 1) ? "Deactivate Team Blast" : "Activate Team Blast";
         if (ImGui::Button(TeamBlastButtonName.c_str())) {
-            editor->write<unsigned char>(0x009DD73C,(TeamBlastState != 1));
-            if (TeamBlastBar >= 92) editor->write<float>(0x009DD72C,0.0f);
+            editor->write<unsigned char>(memadr::TeamBlastState,(TeamBlastState != 1));
+            if (TeamBlastBar >= 92) editor->write<float>(memadr::TeamBlastBar,0.0f);
         }
     }
 
@@ -253,9 +307,9 @@ void shmemeditor::Menues::FlyBar()
 
     ImGui::Text("How Many Unit Fly\n(Default 180)");
     float Unit = 0.0f;
-    editor->read(0x00789FE4,Unit);
+    editor->read(memadr::FlyBar,Unit);
     if (ImGui::InputFloat("##HowManyUnitFly", &Unit)) {
-        editor->write_force(0x00789FE4,Unit);
+        editor->write_force(memadr::FlyBar,Unit);
     }
 
 
@@ -263,7 +317,7 @@ void shmemeditor::Menues::FlyBar()
     editor->read(0x005C56FA,CurrentState);
     bool Freeze = CurrentState == 0x28;
     if (ImGui::Checkbox("Infinite Fly", &Freeze)) {
-        editor->write_force(0x005C56FA,Freeze ? 0x28 : 0x22);
+        editor->write_force<unsigned char>(0x005C56FA,Freeze ? 0x28 : 0x22);
     }
 
     ImGui::End();
@@ -274,7 +328,7 @@ void shmemeditor::Menues::ColorEditor()
 
     struct CharacterData {
         const char* Name = nullptr;
-        const char* EffectNames[6];
+        std::vector<const char*> EffectNames;
         std::vector<int> Address;
     };
     static const CharacterData AllCHData[12] {
@@ -336,12 +390,8 @@ void shmemeditor::Menues::ColorEditor()
     static int selectedCH = 0;
     static int selectedEF = 0;
 
-    if (ImGui::Combo("Character", &selectedCH,CLCHItemLabel,IM_ARRAYSIZE(CLCHItemLabel))) {
-        selectedEF = 0;
-    }
-    int arrsize = (selectedCH % 3) ? 4 : 5;
-    if (selectedCH == 0) arrsize = 6;
-    ImGui::Combo("Effect", &selectedEF,AllCHData[selectedCH].EffectNames,arrsize);
+    if(ImGui::Combo("Character", &selectedCH,CLCHItemLabel,IM_ARRAYSIZE(CLCHItemLabel))) selectedEF = 0;
+    ImGui::Combo("Effect", &selectedEF,AllCHData[selectedCH].EffectNames.data(),AllCHData[selectedCH].EffectNames.size());
 
     ImU32 U32Color = 0;
     editor->read(AllCHData[selectedCH].Address.at(selectedEF), U32Color);
@@ -350,6 +400,57 @@ void shmemeditor::Menues::ColorEditor()
     if (ImGui::ColorEdit4("Set Color", fColor)) {
         U32Color = ImGui::ColorConvertFloat4ToU32({fColor[0],fColor[1],fColor[2],fColor[3]});
         editor->write_force(AllCHData[selectedCH].Address.at(selectedEF), U32Color);
+    }
+
+    ImGui::End();
+}
+void shmemeditor::Menues::Position()
+{
+    ImGui::Begin("Position");
+
+    uintptr_t SpeedAddress = editor->get_pointer_address(memadr::SpeedCharacterBase, memofs::CharacterPosition);
+    uintptr_t FlyAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 4, memofs::CharacterPosition);
+    uintptr_t PowerAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 8, memofs::CharacterPosition);
+    if (!PowerAddress) {
+        ImGui::Text("Waiting addresses");
+        ImGui::End();
+    }
+    float Speed[3] = {}, Fly[3] = {}, Power[3] = {};
+    editor->read(SpeedAddress,Speed,12);
+    editor->read(FlyAddress,Fly,12);
+    editor->read(PowerAddress,Power,12);
+
+    if (ImGui::InputFloat3("Speed", Speed)) editor->write(SpeedAddress,Speed,12);
+    if (ImGui::InputFloat3("Fly", Fly)) editor->write(FlyAddress,Fly,12);
+    if (ImGui::InputFloat3("Power", Power)) editor->write(PowerAddress,Power,12);
+
+    static float TeleportPosition[3] = {0.0f, 100.0f, 0.0f};
+    ImGui::InputFloat3("Teleport", TeleportPosition);
+    if (ImGui::Button("Teleport")) {
+        editor->write(SpeedAddress,TeleportPosition,12);
+        editor->write(FlyAddress,TeleportPosition,12);
+        editor->write(PowerAddress,TeleportPosition,12);
+    }
+
+    ImGui::End();
+}
+void shmemeditor::Menues::Lives()
+{
+    ImGui::Begin("Lives");
+
+    int LivesCount = 0;
+    editor->read(memadr::Lives,LivesCount);
+    if (ImGui::InputInt("##Lives", &LivesCount)) {
+        LivesCount = std::clamp(LivesCount,0,99);
+        editor->write(memadr::Lives,LivesCount);
+    }
+
+    uint8_t CurrentState = 0;
+    editor->read(0x00404631,CurrentState);
+    bool LivesFreeze = CurrentState == 0x0;
+    if (ImGui::Checkbox("Freeze", &LivesFreeze)) {
+        editor->write_force(0x00404631,LivesFreeze ? EmptyArea : memadr::Lives); // restart
+        editor->write_force(0x00423B9A,LivesFreeze ? EmptyArea : memadr::Lives); // get 1up
     }
 
     ImGui::End();
@@ -369,7 +470,7 @@ void shmemeditor::Menues::CharacterOverwrite()
 
     // 008BEB84 Sonic/Tails/Knuckles/03UNK-S/R/O/03UNK-A/C/B/03UNK-E/C/V/03UNK
     CharacterCodeArea Clear = {};
-    if (ImGui::Button("Clear")) editor->write(0x008BEB84,Clear);
+    if (ImGui::Button("Clear")) editor->write(memadr::CharacterOverwriteArea,Clear);
     
     static const char* CHComboBoxLabel[12] = {
 	"Sonic", "Tails", "Knuckles",
@@ -385,14 +486,14 @@ void shmemeditor::Menues::CharacterOverwrite()
 	};
 
     CharacterCodeArea CurrentState;;
-    editor->read(0x008BEB84,CurrentState);
+    editor->read(memadr::CharacterOverwriteArea,CurrentState);
     int StateToInt[16] = {};
     memcpy(StateToInt, &CurrentState, sizeof(int) * 16);
 
     for (int i = 0, j= 0; i<16; ++i) {
         if ((i+1) % 4 == 0) continue;
         if (ImGui::Combo(CHComboBoxLabel[j],&StateToInt[i],CHItemLabel, IM_ARRAYSIZE(CHComboBoxLabel))) {
-            editor->write(0x008BEB84 + 0x4 * i,StateToInt[i]);
+            editor->write(memadr::CharacterOverwriteArea + 0x4 * i,StateToInt[i]);
         }
         ++j;
     }
@@ -413,7 +514,6 @@ void shmemeditor::Menues::TeamOverwrite()
         "Team Rose",
         "Team Chaotix"
     };
-    int EmptyAreaTMO = EmptyArea + 0xC;
     int Select = 0;
     editor->read(EmptyAreaTMO,Select);
     if (ImGui::Combo("Team Overwrite",&Select,TMItemLabel,IM_ARRAYSIZE(TMItemLabel))) {
@@ -449,9 +549,8 @@ void shmemeditor::Menues::StageOverwrite()
 	"Emerald Challange 7" };
     
     // Welcome to code hell
-    int EmptyAreaSTGO = EmptyArea + 0x8;
     int StageState = 0;
-    editor->read(EmptyArea + 0x8,StageState);
+    editor->read(EmptyAreaSTGO,StageState);
     int StageCode = 0;
     if (StageState > 1 && StageState <= 24) StageCode = StageState - 2;
     else if (StageState > 28 && StageState <= 35) StageCode = StageState - 6;
