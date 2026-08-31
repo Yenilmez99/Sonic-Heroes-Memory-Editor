@@ -3,6 +3,7 @@
 #include "memprocess.h"
 
 #include "imgui.h"
+#include "addresses.h"
 
 namespace shmemeditor {
     
@@ -10,7 +11,7 @@ namespace shmemeditor {
     private:
         yen::memprocess::Process* editor = nullptr;
 
-        void Extra();
+        void Extras();
         void Ring();
         void Power();
         void Time();
@@ -20,6 +21,9 @@ namespace shmemeditor {
         void ColorEditor();
         void Position();
         void Lives();
+        void Camera();
+        void Velocity();
+        void Size();
 
         void CharacterOverwrite();
         void TeamOverwrite();
@@ -45,12 +49,12 @@ namespace shmemeditor {
             }
 
             uint8_t GameState = 0;
-            if(!editor->read(0x008D66F0,GameState)) { // The Game have not been started yet
+            if(!editor->read(shmemeditor::addresses::GameState,GameState)) { // The Game have not been started yet
                 return;
             }
 
             if (GameState > 3 && GameState < 11) { // In Game
-                Extra();
+                Extras();
                 Ring();
                 Power();
                 Time();
@@ -60,6 +64,9 @@ namespace shmemeditor {
                 ColorEditor();
                 Position();
                 Lives();
+                Camera();
+                Velocity();
+                Size();
 
                 return;
             }

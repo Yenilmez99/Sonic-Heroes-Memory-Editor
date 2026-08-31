@@ -19,12 +19,16 @@ namespace shmemeditor {
         constexpr uintptr_t ActiveRoleBase = 0x00A778AC;
         constexpr uintptr_t Lives = 0x009DD74C;
         constexpr uintptr_t GameState = 0x008D66F0;
+        constexpr uintptr_t CameraPosition = 0x00A60C30;
+        constexpr uintptr_t CameraRotation = 0x00A60C3C;
 
     }
 
     namespace offsets {
         const std::vector<ptrdiff_t> Power = {0x208};
         const std::vector<ptrdiff_t> CharacterPosition = {0x114};
+        const std::vector<ptrdiff_t> CharacterVelocity = {0x108};
+        const std::vector<ptrdiff_t> CharacterSize = {0x12C};
         const std::vector<ptrdiff_t> ActiveRole = {0x18,0x148};
     }
 

@@ -13,6 +13,7 @@
 #include "imgui_styles.h"
 
 #include "windowmanager.h"
+#include "helper.h"
 
 shmemeditor::WindowManager::WindowManager(const std::string& WindowName, const std::array<float, 2> Size)
 {
@@ -81,6 +82,16 @@ int shmemeditor::WindowManager::render_loop()
         ImGui_ImplOpenGL2_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(0.0f, 0.0f));
+        ImGuiID dockspace_id = ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+        ImGui::PopStyleVar();
+
+        static bool first_setup = false;
+        if (!first_setup) {
+            first_setup = true;
+            DockBuildLayout(dockspace_id);
+        }
 
         EditorMenu.render();
 

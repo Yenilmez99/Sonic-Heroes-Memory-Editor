@@ -1,21 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project("Sonic_Heroes_Memory_Editor" VERSION 3.0.0 LANGUAGES CXX)
-
-if(UNIX AND NOT APPLE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
-
-    set(CMAKE_SYSTEM_LIBRARY_PATH /usr/lib32)
-    set(FIND_LIBRARY_USE_LIB32_PATHS TRUE)
-    set(FIND_LIBRARY_USE_LIB64_PATHS FALSE)
-
-    set(OPENGL_glx_LIBRARY "/usr/lib32/libGLX.so" CACHE FILEPATH "32-bit GLX" FORCE)
-    set(OPENGL_opengl_LIBRARY "/usr/lib32/libOpenGL.so" CACHE FILEPATH "32-bit OpenGL" FORCE)
-    set(OPENGL_gl_LIBRARY "/usr/lib32/libGL.so" CACHE FILEPATH "32-bit GL" FORCE)
-endif()
+project(Sonic_Heroes_Memory_Editor_Workspace VERSION 3.0.0 LANGUAGES CXX)
 
 set(SOURCE_FILES
     src/main.cpp
@@ -96,37 +81,47 @@ target_link_libraries(imgui PUBLIC
 # Application
 # ============================================================
 
-add_executable(${PROJECT_NAME}
+add_executable(MemoryEditorExecutable
     ${SOURCE_FILES}
 )
-target_include_directories(${PROJECT_NAME} PRIVATE
+set_target_properties(MemoryEditorExecutable PROPERTIES OUTPUT_NAME "Sonic Heroes Memory Editor")
+target_include_directories(MemoryEditorExecutable PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(MemoryEditorExecutable PRIVATE
     imgui
     OpenGL::GL
     YenLib::Memory
 )
 
 # ============================================================
-# Windows & MinGW Static Runtime
+# Windows & MinGW Static Runtime & Memory Editor Opener DLL
 # ============================================================
 
 if(WIN32)
-    set_target_properties(${PROJECT_NAME} PROPERTIES
+    add_library(BridgeDLL SHARED src/dllmain.cpp)
+    set_target_properties(BridgeDLL PROPERTIES OUTPUT_NAME "memeditoropener")
+
+    set_target_properties(MemoryEditorExecutable PROPERTIES
         WIN32_EXECUTABLE TRUE
     )
 
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        target_link_options(${PROJECT_NAME} PRIVATE
+        target_link_options(MemoryEditorExecutable PRIVATE
+            -static
+            -static-libgcc
+            -static-libstdc++
+        )
+
+        target_link_options(BridgeDLL PRIVATE
             -static
             -static-libgcc
             -static-libstdc++
         )
     elseif(MSVC)
-        target_link_options(${PROJECT_NAME} PRIVATE "/ENTRY:mainCRTStartup")
-        set_property(TARGET ${PROJECT_NAME} PROPERTY 
+        target_link_options(MemoryEditorExecutable PRIVATE "/ENTRY:mainCRTStartup")
+        set_property(TARGET MemoryEditorExecutable PROPERTY 
             MSVC_RUNTIME_LIBRARY "MultiThreaded"
         )
     endif()

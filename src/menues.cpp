@@ -8,6 +8,7 @@
 #include "menues.h"
 #include "memprocess.h"
 #include "addresses.h"
+#include "helper.h"
 
 namespace memadr = shmemeditor::addresses;
 namespace memofs = shmemeditor::offsets;
@@ -36,7 +37,7 @@ void shmemeditor::Menues::terminate()
     editor = nullptr;
 }
 
-void shmemeditor::Menues::Extra()
+void shmemeditor::Menues::Extras()
 {
     ImGui::Begin("Extras");
     
@@ -50,21 +51,23 @@ void shmemeditor::Menues::Extra()
 
     if (ImGui::Button("Quick Exit")) editor->write(memadr::GameState, 11);
 
-    uint8_t CurrentState = 0;
-    editor->read(0x006AA46F,CurrentState);
-    bool DisableGui = CurrentState == 0xE9;
+    uint8_t DisableGuiCurrentState = 0;
+    editor->read(0x006AA46F,DisableGuiCurrentState);
+    bool DisableGui = DisableGuiCurrentState == 0xE9;
     if (ImGui::Checkbox("Disable GUI", &DisableGui)) {
         if (DisableGui) {
-            uint8_t DisableGuiNewFunction[31] = {
+            uint8_t DisableGuiNewFunction[40] = {
                 0x80, 0x3D, 0xF0, 0x66, 0x8D, 0x00, 0x04,
-                0x74, 0x11,
+                0x74, 0x1A,
                 0x80, 0x3D, 0xF0, 0x66, 0x8D, 0x00, 0x05,
+                0x74, 0x11,
+                0x80, 0x3D, 0xF0, 0x66, 0x8D, 0x00, 0x0A,
                 0x74, 0x08,
                 0xD9, 0x44, 0x24, 0x28,
                 0xD8, 0x4C, 0x24, 0x20,
-                0xE9, 0x28, 0xA4, 0xDA, 0xFF
+                0xE9, 0x1F, 0xA4, 0xDA, 0xFF
             };
-            editor->write(EmptyAreaDisableGui,DisableGuiNewFunction,31);
+            editor->write(EmptyAreaDisableGui,DisableGuiNewFunction,40);
 
             uint8_t JumpToNewFunction[8] = {
                 0xE9, 0xBC, 0x5B, 0x25, 0x00,
@@ -85,6 +88,18 @@ void shmemeditor::Menues::Extra()
 
     }
 
+    uint8_t FreezeStageCurrentState = 0;
+    editor->read(memadr::GameState,FreezeStageCurrentState);
+    bool FreezeStage = FreezeStageCurrentState == 10;
+    if (ImGui::Checkbox("Freeze Stage", &FreezeStage)) {
+        editor->write<unsigned char>(memadr::GameState,FreezeStage ? 10 : 5);
+    }
+
+    ImGui::Text("Freeze Stage Key: Q");
+    uint8_t Q_Key = 0;
+    editor->read(0x00A2FA18, Q_Key);
+    if (Q_Key) editor->write<unsigned char>(memadr::GameState, 10);
+
     ImGui::End();
 
 }
@@ -99,8 +114,7 @@ void shmemeditor::Menues::Ring()
     editor->read(0x00423B2A, CurrentState);
     bool RingFreeze = CurrentState == 0x0;
 
-    if (ImGui::InputInt("##Rings", &Rings)) {
-        Rings = std::clamp(Rings,0,999);
+    if (ImGui::DragInt("##Rings", &Rings, 1.0f, 0, 999)) {
         editor->write(memadr::Ring, Rings);
 
         if (RingFreeze) {
@@ -205,7 +219,7 @@ void shmemeditor::Menues::Time()
     uint8_t Time[3] = {};
     editor->read(memadr::Time,Time,3);
     int TimeInt[3] = {Time[2],Time[1],Time[0]};
-    if (ImGui::InputInt3("##Time", TimeInt)) {
+    if (ImGui::DragInt3("##Time", TimeInt)) {
         TimeInt[0] = std::clamp(TimeInt[0],0,99);
         TimeInt[1] = std::clamp(TimeInt[1],0,59);
         TimeInt[2] = std::clamp(TimeInt[2],0,59);
@@ -248,7 +262,7 @@ void shmemeditor::Menues::Point()
     editor->read(memadr::Point,Points,12);
     int TotalPoint = Points[0] + Points[1] + Points[2];
     ImGui::Text("Total Point: %d",TotalPoint);
-    if (ImGui::InputInt3("S/F/P", Points)) {
+    if (ImGui::DragInt3("S/F/P", Points)) {
         editor->write(memadr::Point,Points,12);
     }
 
@@ -303,12 +317,12 @@ void shmemeditor::Menues::TeamBlast()
 }
 void shmemeditor::Menues::FlyBar()
 {
-    ImGui::Begin("FlyBar");
+    ImGui::Begin("Fly Bar");
 
     ImGui::Text("How Many Unit Fly\n(Default 180)");
     float Unit = 0.0f;
     editor->read(memadr::FlyBar,Unit);
-    if (ImGui::InputFloat("##HowManyUnitFly", &Unit)) {
+    if (ImGui::DragFloat("##HowManyUnitFly", &Unit)) {
         editor->write_force(memadr::FlyBar,Unit);
     }
 
@@ -420,12 +434,12 @@ void shmemeditor::Menues::Position()
     editor->read(FlyAddress,Fly,12);
     editor->read(PowerAddress,Power,12);
 
-    if (ImGui::InputFloat3("Speed", Speed)) editor->write(SpeedAddress,Speed,12);
-    if (ImGui::InputFloat3("Fly", Fly)) editor->write(FlyAddress,Fly,12);
-    if (ImGui::InputFloat3("Power", Power)) editor->write(PowerAddress,Power,12);
+    if (ImGui::DragFloat3("Speed", Speed)) editor->write(SpeedAddress,Speed,12);
+    if (ImGui::DragFloat3("Fly", Fly)) editor->write(FlyAddress,Fly,12);
+    if (ImGui::DragFloat3("Power", Power)) editor->write(PowerAddress,Power,12);
 
     static float TeleportPosition[3] = {0.0f, 100.0f, 0.0f};
-    ImGui::InputFloat3("Teleport", TeleportPosition);
+    ImGui::DragFloat3("Teleport", TeleportPosition);
     if (ImGui::Button("Teleport")) {
         editor->write(SpeedAddress,TeleportPosition,12);
         editor->write(FlyAddress,TeleportPosition,12);
@@ -440,7 +454,7 @@ void shmemeditor::Menues::Lives()
 
     int LivesCount = 0;
     editor->read(memadr::Lives,LivesCount);
-    if (ImGui::InputInt("##Lives", &LivesCount)) {
+    if (ImGui::DragInt("##Lives", &LivesCount, 1.0f, 0, 99)) {
         LivesCount = std::clamp(LivesCount,0,99);
         editor->write(memadr::Lives,LivesCount);
     }
@@ -451,6 +465,121 @@ void shmemeditor::Menues::Lives()
     if (ImGui::Checkbox("Freeze", &LivesFreeze)) {
         editor->write_force(0x00404631,LivesFreeze ? EmptyArea : memadr::Lives); // restart
         editor->write_force(0x00423B9A,LivesFreeze ? EmptyArea : memadr::Lives); // get 1up
+    }
+
+    ImGui::End();
+}
+void shmemeditor::Menues::Camera()
+{
+    ImGui::Begin("Camera");
+
+    float Position[3] = {};
+    editor->read(memadr::CameraPosition,Position,12);
+    if (ImGui::DragFloat3("Position", Position)) {
+        editor->write(memadr::CameraPosition,Position,12);
+    }
+
+    int RotationBams[3] = {};
+    editor->read(memadr::CameraRotation,RotationBams,12);
+    float RotationDegrees[3] = {};
+    RotationDegrees[0] = BamsToDegrees(RotationBams[0]);
+    RotationDegrees[1] = BamsToDegrees(RotationBams[1]);
+    RotationDegrees[2] = BamsToDegrees(RotationBams[2]);
+    if (ImGui::DragFloat3("Rotation", RotationDegrees, 1.0f)) {
+        RotationBams[0] = DegreesToBams(RotationDegrees[0]);
+        RotationBams[1] = DegreesToBams(RotationDegrees[1]);
+        RotationBams[2] = DegreesToBams(RotationDegrees[2]);
+        editor->write(memadr::CameraRotation,RotationBams,12);
+    }
+
+    uint8_t CurrentState = 0;
+    editor->read(0x006207DB,CurrentState);
+    bool FreeCamera = CurrentState == 0xC3;
+    if (ImGui::Checkbox("Free Camera", &FreeCamera)) {
+        editor->write_force<short>(0x006207DB, FreeCamera ? 0x90C3 : 0x1189);
+    }
+
+    if (ImGui::Button("Teleport to Camera Position")) {
+        uintptr_t SpeedAddress = editor->get_pointer_address(memadr::SpeedCharacterBase, memofs::CharacterPosition);
+        uintptr_t FlyAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 4, memofs::CharacterPosition);
+        uintptr_t PowerAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 8, memofs::CharacterPosition);
+        editor->write(SpeedAddress,Position,12);
+        editor->write(FlyAddress,Position,12);
+        editor->write(PowerAddress,Position,12);
+        
+    }
+
+    ImGui::End();
+}
+void shmemeditor::Menues::Velocity()
+{
+    ImGui::Begin("Velocity");
+
+    ImGui::Text("Moon Jump Key: E");
+    static float MoonJumpForce = 10.0f;
+    ImGui::InputFloat("Force ##MoonJump", &MoonJumpForce);
+    uint8_t E_Key = 0;
+    editor->read(0x00A2FA1A, E_Key); // 00A2FA1A e key
+    if (E_Key) {
+        uintptr_t SpeedAddress = editor->get_pointer_address(memadr::SpeedCharacterBase, memofs::CharacterVelocity) + 4;
+        uintptr_t FlyAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 4, memofs::CharacterVelocity) + 4;
+        uintptr_t PowerAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 8, memofs::CharacterVelocity) + 4;
+    
+        editor->write(SpeedAddress,MoonJumpForce);
+        editor->write(FlyAddress,MoonJumpForce);
+        editor->write(PowerAddress,MoonJumpForce);
+    }
+
+    ImGui::Text("Super Speed Key: R");
+    static float SuperSpeedForce = 10.0f;
+    ImGui::InputFloat("Force ##SuperSpeed", &SuperSpeedForce);
+    uint8_t R_Key = 0;
+    editor->read(0x00A2FA1B, R_Key); // 00A2FA1B R key
+    if (R_Key) {
+        uintptr_t SpeedAddress = editor->get_pointer_address(memadr::SpeedCharacterBase, memofs::CharacterVelocity);
+        uintptr_t FlyAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 4, memofs::CharacterVelocity);
+        uintptr_t PowerAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 8, memofs::CharacterVelocity);
+    
+        editor->write(SpeedAddress,SuperSpeedForce);
+        editor->write(FlyAddress,SuperSpeedForce);
+        editor->write(PowerAddress,SuperSpeedForce);
+    }
+
+    ImGui::End();
+}
+void shmemeditor::Menues::Size()
+{
+    ImGui::Begin("Size");
+
+    uint8_t CurrentState = 0;
+    editor->read(0x00429D00,CurrentState);
+    bool FreezeSize = CurrentState == 0xC3;
+    if (ImGui::Checkbox("Open Size Editor", &FreezeSize)) {
+        editor->write_force<unsigned char>(0x00429D00,FreezeSize ? 0xC3 : 0x83);
+        editor->write_force<short>(0x0057FAC8,FreezeSize ? 0x10EB : 0x8889);
+    }
+    if (!FreezeSize) {
+        ImGui::End();
+        return;
+    }
+
+    uintptr_t SpeedAddress = editor->get_pointer_address(memadr::SpeedCharacterBase, memofs::CharacterSize);
+    uintptr_t FlyAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 4, memofs::CharacterSize);
+    uintptr_t PowerAddress = editor->get_pointer_address(memadr::SpeedCharacterBase + 8, memofs::CharacterSize);
+    float SpeedSize[3] = {};
+    float FlySize[3] = {};
+    float PowerSize[3] = {};
+    editor->read(SpeedAddress,SpeedSize,12);
+    editor->read(FlyAddress,FlySize,12);
+    editor->read(PowerAddress,PowerSize,12);
+    if (ImGui::DragFloat3("Speed", SpeedSize, 0.2f)) {
+        editor->write(SpeedAddress,SpeedSize,12);
+    }
+    if (ImGui::DragFloat3("Fly", FlySize, 0.2f)) {
+        editor->write(FlyAddress,FlySize,12);
+    }
+    if (ImGui::DragFloat3("Power", PowerSize, 0.2f)) {
+        editor->write(PowerAddress,PowerSize,12);
     }
 
     ImGui::End();
