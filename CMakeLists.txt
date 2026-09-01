@@ -124,5 +124,8 @@ if(WIN32)
         set_property(TARGET MemoryEditorExecutable PROPERTY 
             MSVC_RUNTIME_LIBRARY "MultiThreaded"
         )
+        set_property(TARGET BridgeDLL PROPERTY 
+            MSVC_RUNTIME_LIBRARY "MultiThreaded"
+        )
     endif()
 endif()
