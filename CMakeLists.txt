@@ -96,7 +96,7 @@ target_link_libraries(MemoryEditorExecutable PRIVATE
 )
 
 # ============================================================
-# Windows & MinGW Static Runtime & Memory Editor Opener DLL
+# Windows Static Runtime & Memory Editor Opener DLL
 # ============================================================
 
 if(WIN32)
@@ -107,25 +107,8 @@ if(WIN32)
         WIN32_EXECUTABLE TRUE
     )
 
-    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        target_link_options(MemoryEditorExecutable PRIVATE
-            -static
-            -static-libgcc
-            -static-libstdc++
-        )
-
-        target_link_options(BridgeDLL PRIVATE
-            -static
-            -static-libgcc
-            -static-libstdc++
-        )
-    elseif(MSVC)
+    if(MSVC)
         target_link_options(MemoryEditorExecutable PRIVATE "/ENTRY:mainCRTStartup")
-        set_property(TARGET MemoryEditorExecutable PROPERTY 
-            MSVC_RUNTIME_LIBRARY "MultiThreaded"
-        )
-        set_property(TARGET BridgeDLL PROPERTY 
-            MSVC_RUNTIME_LIBRARY "MultiThreaded"
-        )
     endif()
+	
 endif()

@@ -1,0 +1,12 @@
+# Target OS -> Windows
+set(CMAKE_SYSTEM_NAME Windows)
+set(CMAKE_SYSTEM_VERSION 10.0)
+set(CMAKE_SYSTEM_PROCESSOR x86)
+
+# Compilers (MSVC)
+set(CMAKE_C_COMPILER cl)
+set(CMAKE_CXX_COMPILER cl)
+set(CMAKE_LINKER link)
+
+set(CMAKE_C_FLAGS_INIT "/W4")
+set(CMAKE_CXX_FLAGS_INIT "/W4 /Zc:__cplusplus")
